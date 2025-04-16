@@ -1,0 +1,21 @@
+# Archivos y carpetas de Visual Studio
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Archivos de compilación
+bin/
+obj/
+
+# Archivos de sistema
+Thumbs.db
+ehthumbs.db
+
+# Archivos de MacOS
+.DS_Store
+
+# Archivos de NPM
+node_modules/
