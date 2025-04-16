@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:ProyectoFinal.ViewModels"
+             x:Class="ProyectoFinal.Login"
+             xmlns:local="clr-namespace:ProyectoFinal"
+             Title="Iniciar Sesión">
+
+   
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <Label Text="Iniciar sesión" FontSize="32" HorizontalOptions="Center" />
+
+        <!-- Vinculamos el campo de correo al ViewModel -->
+        <Entry Text="{Binding Email}" Placeholder="Correo electrónico" Keyboard="Email" />
+
+        <!-- Vinculamos el campo de contraseña al ViewModel -->
+        <Entry Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True" />
+
+        <!-- Botón que ejecuta la lógica del ViewModel -->
+        <Button Text="Iniciar sesión" Clicked="OnLoginButtonClicked" />
+
+        <!-- Mensaje de estado -->
+        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
+    </VerticalStackLayout>
+
+</ContentPage>
