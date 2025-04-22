@@ -4,11 +4,18 @@
              x:Class="ProyectoFinal.Vista.AlimentosView"
              Title="Alimentos">
 
-    <VerticalStackLayout Padding="30" Spacing="20">
-        <Label Text="Lista de Alimentos" FontSize="32" HorizontalOptions="Center" />
+    <Grid Padding="30" ColumnSpacing="20">
+        <!-- Definir las dos columnas -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
 
+        <!-- Lista de Alimentos en la primera columna -->
         <ListView ItemsSource="{Binding Alimentos}"
-                  SeparatorVisibility="Default">
+                  SeparatorVisibility="Default"
+                  SelectedItem="{Binding AlimentoSeleccionado}"
+                  ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -22,7 +29,18 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Label Text="{Binding Mensaje}" TextColor="Red" HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        <!-- Cuadro de Detalles en la segunda columna -->
+        <StackLayout Grid.Column="1" Padding="10">
+            <Label Text="Detalles del Alimento" FontSize="24" HorizontalOptions="Center" />
+            <Label Text="{Binding AlimentoSeleccionado.Nombre}" FontSize="20" />
+            <Label Text="{Binding AlimentoSeleccionado.Categoria}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Calorias}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Proteinas}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Carbohidratos}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Grasas}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Fibra}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding AlimentoSeleccionado.Origen}" FontSize="16" TextColor="Gray"/>
+        </StackLayout>
 
+    </Grid>
 </ContentPage>

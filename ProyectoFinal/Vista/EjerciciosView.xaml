@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Vista.EjerciciosView"
+             Title="Ejercicios">
+
+    <Grid Padding="30" ColumnSpacing="20">
+        <!-- Definir las dos columnas -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Lista de Ejercicios en la primera columna -->
+        <ListView ItemsSource="{Binding Ejercicios}"
+                  SeparatorVisibility="Default"
+                  SelectedItem="{Binding EjercicioSeleccionado}"
+                  ItemTapped="OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Nombre}" FontSize="20" />
+                            <Label Text="{Binding Categoria}" FontSize="16" TextColor="Gray"/>
+                            <Label Text="{Binding Nivel}" FontSize="16" TextColor="Gray"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Cuadro de Detalles en la segunda columna -->
+        <StackLayout Grid.Column="1" Padding="10">
+            <Label Text="Detalles del Ejercicio" FontSize="24" HorizontalOptions="Center" />
+            <Label Text="{Binding EjercicioSeleccionado.Nombre}" FontSize="20" />
+            <Label Text="{Binding EjercicioSeleccionado.Categoria}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding EjercicioSeleccionado.Descripcion}" FontSize="16" TextColor="Gray"/>
+            <Label Text="{Binding EjercicioSeleccionado.Nivel}" FontSize="16" TextColor="Gray"/>
+            <Label Text="Músculos Trabajados:" FontSize="16" TextColor="Black"/>
+            <StackLayout>
+                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[0]}" FontSize="16" TextColor="Gray"/>
+                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[1]}" FontSize="16" TextColor="Gray"/>
+                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[2]}" FontSize="16" TextColor="Gray"/>
+                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[3]}" FontSize="16" TextColor="Gray"/>
+                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[4]}" FontSize="16" TextColor="Gray"/>
+            </StackLayout>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

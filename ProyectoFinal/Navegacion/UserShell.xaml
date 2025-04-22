@@ -11,7 +11,9 @@
     <TabBar>
         
         <ShellContent Title="Alimentos" ContentTemplate="{DataTemplate local:AlimentosView}" />
-        
+
+        <ShellContent Title="Rutinas" ContentTemplate="{DataTemplate local:RutinasView}" />
+
     </TabBar>
 
 </Shell>

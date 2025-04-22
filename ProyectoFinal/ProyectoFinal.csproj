@@ -78,6 +78,9 @@
 	  <Compile Update="Navegacion\UserShell.xaml.cs">
 	    <DependentUpon>UserShell.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Vista\EjerciciosView.xaml.cs">
+	    <DependentUpon>EjerciciosView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,6 +91,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Vista\AlimentosView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vista\EjerciciosView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vista\RutinasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

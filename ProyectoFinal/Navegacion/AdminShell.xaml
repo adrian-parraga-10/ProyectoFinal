@@ -18,6 +18,16 @@
     <ShellContent Route="AlimentosView"
         Icon="question.png"
         Title="Alimentos"
-        ContentTemplate="{DataTemplate local:AlimentosView}" /> 
+        ContentTemplate="{DataTemplate local:AlimentosView}" />
+
+    <ShellContent Route="EjerciciosView"
+        Icon="question.png"
+        Title="Ejercicios"
+        ContentTemplate="{DataTemplate local:EjerciciosView}" />
+
+    <ShellContent Route="RutinasView"
+        Icon="question.png"
+        Title="Rutinas"
+        ContentTemplate="{DataTemplate local:RutinasView}" />
 
 </Shell>

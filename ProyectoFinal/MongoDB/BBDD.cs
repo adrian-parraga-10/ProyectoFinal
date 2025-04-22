@@ -17,8 +17,16 @@ public class BBDD
     // Constructor que establece la conexión
     public BBDD()
     {
-        var client = new MongoClient(_connectionString);
-        _database = client.GetDatabase("fitnessApp"); // Nombre de la base de datos
+        try
+        {
+            var client = new MongoClient(_connectionString);
+            _database = client.GetDatabase("fitnessApp"); // Nombre de la base de datos
+            Console.WriteLine("Conexión exitosa a la base de datos.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error de conexión a MongoDB: {ex.Message}");
+        }
     }
 
     // Método para obtener los alimentos desde la base de datos
@@ -37,5 +45,48 @@ public class BBDD
         var usuario = await collection.Find(filtro).FirstOrDefaultAsync();
         return usuario;
     }
+
+    // Método para obtener los ejercicios desde la base de datos
+    public async Task<List<Ejercicio>> ObtenerEjerciciosAsync()
+    {
+        var collection = _database.GetCollection<Ejercicio>("ejercicios");
+        var ejercicios = await collection.Find(Builders<Ejercicio>.Filter.Empty).ToListAsync();
+        return ejercicios;
+    }
+
+    // Método para obtener las rutinas
+    public async Task<List<Rutina>> ObtenerRutinasAsync()
+    {
+        var collectionRutinas = _database.GetCollection<Rutina>("rutinas");
+        var rutinas = await collectionRutinas.Find(Builders<Rutina>.Filter.Empty).ToListAsync();
+        return rutinas;
+    }
+
+    // Método para obtener una rutina con sus ejercicios
+    public async Task<Rutina> ObtenerRutinaConEjercicios(ObjectId rutinaId)
+    {
+        var collectionRutinas = _database.GetCollection<Rutina>("rutinas");
+        var rutina = await collectionRutinas.Find(r => r.Id == rutinaId).FirstOrDefaultAsync();
+
+        if (rutina != null)
+        {
+            var collectionEjercicios = _database.GetCollection<Ejercicio>("ejercicios");
+
+            // Para cada ejercicio en la rutina, obtener los detalles completos
+            foreach (var ejercicioRutina in rutina.Ejercicios)
+            {
+                var ejercicio = await collectionEjercicios.Find(e => e.Id == ejercicioRutina.EjercicioId).FirstOrDefaultAsync();
+                if (ejercicio != null)
+                {
+                    ejercicioRutina.Nombre = ejercicio.Nombre;  // Asignar nombre del ejercicio
+                   
+                }
+            }
+        }
+
+        return rutina;
+    }
+
+
 
 }

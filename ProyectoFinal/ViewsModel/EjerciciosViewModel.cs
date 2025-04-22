@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 
 namespace ProyectoFinal.ViewsModel
 {
-    public class AlimentosViewModel : INotifyPropertyChanged
+    public class EjerciciosViewModel : INotifyPropertyChanged
     {
         private readonly BBDD _bbdd = new BBDD();
 
-        public ObservableCollection<Alimento> Alimentos { get; set; } = new ObservableCollection<Alimento>();
+        public ObservableCollection<Ejercicio> Ejercicios { get; set; } = new ObservableCollection<Ejercicio>();
 
         private string _mensaje;
         public string Mensaje
@@ -22,34 +22,34 @@ namespace ProyectoFinal.ViewsModel
             }
         }
 
-        private Alimento _alimentoSeleccionado;
-        public Alimento AlimentoSeleccionado
+        private Ejercicio _ejercicioSeleccionado;
+        public Ejercicio EjercicioSeleccionado
         {
-            get => _alimentoSeleccionado;
+            get => _ejercicioSeleccionado;
             set
             {
-                _alimentoSeleccionado = value;
+                _ejercicioSeleccionado = value;
                 OnPropertyChanged();
             }
         }
 
-        public AlimentosViewModel()
+        public EjerciciosViewModel()
         {
-            CargarAlimentos();
+            CargarEjercicios();
         }
 
-        private async void CargarAlimentos()
+        private async void CargarEjercicios()
         {
-            var lista = await _bbdd.ObtenerAlimentosAsync();
+            var lista = await _bbdd.ObtenerEjerciciosAsync();
 
             if (lista != null && lista.Count > 0)
             {
-                foreach (var alimento in lista)
-                    Alimentos.Add(alimento);
+                foreach (var ejercicio in lista)
+                    Ejercicios.Add(ejercicio);
             }
             else
             {
-                Mensaje = "No hay alimentos disponibles.";
+                Mensaje = "No hay ejercicios disponibles.";
             }
         }
 
