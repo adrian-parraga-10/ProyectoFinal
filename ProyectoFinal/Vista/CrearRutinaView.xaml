@@ -1,0 +1,53 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ProyectoFinal.ViewsModel"
+             x:Class="ProyectoFinal.Vista.CrearRutinaView"
+             Title="Crear Rutina">
+
+  
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <!-- Entradas para nombre y descripción de la rutina -->
+        <Label Text="Nombre de la Rutina"/>
+        <Entry Text="{Binding NombreRutina}" Placeholder="Ej. Full Body"/>
+
+        <Label Text="Descripción"/>
+        <Editor Text="{Binding DescripcionRutina}" HeightRequest="80"/>
+
+        <!-- Colección de ejercicios -->
+        <Label Text="Selecciona Ejercicios:"/>
+        <CollectionView ItemsSource="{Binding TodosEjercicios}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <!-- Agregar TapGesture para selección -->
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CrearRutinaViewModel}}, Path=ActualizarSeleccionCommand}" 
+                                CommandParameter="{Binding .}" />
+                        </StackLayout.GestureRecognizers>
+
+                        <Label Text="{Binding Nombre}" FontSize="18" />
+                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="Gray" Margin="10,0,0,0"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Mostrar los ejercicios seleccionados -->
+        <Label Text="Ejercicios Seleccionados:" FontSize="18" Margin="0,20,0,10"/>
+        <CollectionView ItemsSource="{Binding EjerciciosSeleccionados}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <Label Text="{Binding Nombre}" FontSize="18" />
+                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="Gray" Margin="10,0,0,0"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Botón para guardar la rutina -->
+        <Button Text="Guardar Rutina" Command="{Binding GuardarRutinaCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

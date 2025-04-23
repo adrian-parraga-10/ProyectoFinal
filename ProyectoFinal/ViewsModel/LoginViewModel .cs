@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ProyectoFinal.Modelos;
+using ProyectoFinal.Singleton;
 
 namespace ProyectoFinal.ViewModels
 {
@@ -62,6 +63,12 @@ namespace ProyectoFinal.ViewModels
             }
 
             var usuario = await _bbdd.ObtenerUsuarioAsync(Email, Password);
+
+            if (usuario != null)
+            {
+                GlobalData.Instance.UsuarioActual = usuario;
+                GlobalData.Instance.UsuarioId = usuario.Id;
+            }
 
             if (usuario != null)
             {

@@ -46,7 +46,7 @@ public class RutinasViewModel : INotifyPropertyChanged
     {
         try
         {
-            var listaRutinas = await _bbdd.ObtenerRutinasAsync();
+            var listaRutinas = await _bbdd.ObtenerRutinasUsuarioActualAsync();
 
             if (listaRutinas != null && listaRutinas.Count > 0)
             {
@@ -61,7 +61,7 @@ public class RutinasViewModel : INotifyPropertyChanged
             }
             else
             {
-                Console.WriteLine("No se han encontrado rutinas.");
+                Console.WriteLine("No se han encontrado rutinas para este usuario.");
             }
         }
         catch (Exception ex)
@@ -69,6 +69,7 @@ public class RutinasViewModel : INotifyPropertyChanged
             Console.WriteLine($"Error al cargar las rutinas: {ex.Message}");
         }
     }
+
 
     private async void OnRutaSeleccionadaChanged()
     {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using ProyectoFinal.Singleton;
 
 using ProyectoFinal.Modelos;
 
@@ -55,12 +50,17 @@ public class BBDD
     }
 
     // Método para obtener las rutinas
-    public async Task<List<Rutina>> ObtenerRutinasAsync()
+    public async Task<List<Rutina>> ObtenerRutinasUsuarioActualAsync()
     {
+        var usuarioId = GlobalData.Instance.UsuarioId;
         var collectionRutinas = _database.GetCollection<Rutina>("rutinas");
-        var rutinas = await collectionRutinas.Find(Builders<Rutina>.Filter.Empty).ToListAsync();
+
+        var filtro = Builders<Rutina>.Filter.Eq(r => r.UsuarioId, usuarioId);
+        var rutinas = await collectionRutinas.Find(filtro).ToListAsync();
+
         return rutinas;
     }
+
 
     // Método para obtener una rutina con sus ejercicios
     public async Task<Rutina> ObtenerRutinaConEjercicios(ObjectId rutinaId)
@@ -86,6 +86,14 @@ public class BBDD
 
         return rutina;
     }
+
+
+    public async Task GuardarRutinaAsync(Rutina rutina)
+    {
+        var collection = _database.GetCollection<Rutina>("rutinas");
+        await collection.InsertOneAsync(rutina);
+    }
+
 
 
 

@@ -93,6 +93,9 @@
 	  <MauiXaml Update="Vista\AlimentosView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Vista\CrearRutinaView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Vista\EjerciciosView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
