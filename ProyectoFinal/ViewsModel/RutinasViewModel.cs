@@ -1,13 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using ProyectoFinal.Modelos;
+using ProyectoFinal.Vista;
 public class RutinasViewModel : INotifyPropertyChanged
 {
     private readonly BBDD _bbdd = new BBDD();
     public ObservableCollection<Rutina> Rutinas { get; set; } = new ObservableCollection<Rutina>();
     private Rutina _rutaSeleccionada;
     private bool _detallesVisible;
+
+    public ICommand IrARegistrarRutinaCommand { get; }
 
     public Rutina RutaSeleccionada
     {
@@ -40,6 +44,7 @@ public class RutinasViewModel : INotifyPropertyChanged
     public RutinasViewModel()
     {
         CargarRutinas();
+        IrARegistrarRutinaCommand = new Command(IrARegistrarRutina);
     }
 
     private async void CargarRutinas()
@@ -81,6 +86,18 @@ public class RutinasViewModel : INotifyPropertyChanged
         {
             // Aquí solo actualizamos los ejercicios si no están ya cargados
             RutaSeleccionada = await _bbdd.ObtenerRutinaConEjercicios(RutaSeleccionada.Id);
+        }
+    }
+
+    private async void IrARegistrarRutina()
+    {
+        if (RutaSeleccionada != null)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new RegistrarEntrenamientoView(RutaSeleccionada));
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Aviso", "Selecciona una rutina primero.", "OK");
         }
     }
 

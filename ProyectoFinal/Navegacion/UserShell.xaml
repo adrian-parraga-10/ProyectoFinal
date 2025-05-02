@@ -36,4 +36,15 @@
          Title="Crear Rutinas"
          ContentTemplate="{DataTemplate local:CrearRutinaView}" />
 
+    <ShellContent Route="HistorialSesionesView"
+         Icon="question.png"
+         Title="Historial Sesiones"
+         ContentTemplate="{DataTemplate local:HistorialSesionesView}" />
+
+    <ShellContent Route="EstadisticasView"
+         Icon="question.png"
+         Title="Estadisticas"
+         ContentTemplate="{DataTemplate local:EstadisticasView}" />
+
+
 </Shell>

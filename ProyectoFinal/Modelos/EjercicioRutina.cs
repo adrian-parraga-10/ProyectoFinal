@@ -29,18 +29,5 @@ namespace ProyectoFinal.Modelos
         public List<Serie> Series { get; set; }
     }
 
-    public class Serie
-    {
-        [BsonElement("serie_numero")]
-        public int SerieNumero { get; set; }
-
-        [BsonElement("repeticiones")]
-        public int Repeticiones { get; set; }
-
-        [BsonElement("peso")]
-        public int Peso { get; set; }
-
-        [BsonElement("comentarios")]
-        public string Comentarios { get; set; }
-    }
+    
 }

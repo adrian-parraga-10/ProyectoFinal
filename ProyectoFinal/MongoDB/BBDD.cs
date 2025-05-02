@@ -94,6 +94,55 @@ public class BBDD
         await collection.InsertOneAsync(rutina);
     }
 
+    public async Task GuardarSesionEntrenamientoAsync(SesionEntrenamiento sesion)
+    {
+        var collection = _database.GetCollection<SesionEntrenamiento>("sesiones");
+        await collection.InsertOneAsync(sesion);
+    }
+
+    public async Task AgregarSerieAlHistorialAsync(ObjectId rutinaId, ObjectId ejercicioId, Serie nuevaSerie)
+    {
+        var collection = _database.GetCollection<Rutina>("rutinas");
+
+        // Crear el filtro para encontrar la rutina y el ejercicio dentro
+        var filtro = Builders<Rutina>.Filter.And(
+            Builders<Rutina>.Filter.Eq(r => r.Id, rutinaId),
+            Builders<Rutina>.Filter.ElemMatch(r => r.Ejercicios, e => e.EjercicioId == ejercicioId)
+        );
+
+        // Crear el update: agrega la serie al historial correspondiente
+        var update = Builders<Rutina>.Update.Push("ejercicios.$.serie_historial", new SerieHistorial
+        {
+            FechaSesion = DateTime.Now,
+            Series = new List<Serie> { nuevaSerie }
+        });
+
+        await collection.UpdateOneAsync(filtro, update);
+    }
+
+
+    public async Task<List<SerieHistorial>> ObtenerHistorialEjercicioAsync(ObjectId rutinaId, ObjectId ejercicioId)
+    {
+        var collection = _database.GetCollection<Rutina>("rutinas");
+
+        var filtro = Builders<Rutina>.Filter.Eq(r => r.Id, rutinaId);
+        var rutina = await collection.Find(filtro).FirstOrDefaultAsync();
+
+        var ejercicio = rutina?.Ejercicios.FirstOrDefault(e => e.EjercicioId == ejercicioId);
+        return ejercicio?.SerieHistorial ?? new List<SerieHistorial>();
+    }
+
+    public async Task<List<SesionEntrenamiento>> ObtenerSesionesPorUsuario(ObjectId usuarioId)
+    {
+        var collection = _database.GetCollection<SesionEntrenamiento>("sesiones");
+
+        var filtro = Builders<SesionEntrenamiento>.Filter.Eq(s => s.UsuarioId, usuarioId);
+        var sesiones = await collection.Find(filtro).ToListAsync();
+
+        return sesiones;
+    }
+
+
 
 
 

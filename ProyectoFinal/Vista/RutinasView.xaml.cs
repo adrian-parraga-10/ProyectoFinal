@@ -9,5 +9,14 @@ namespace ProyectoFinal.Vista
             InitializeComponent();
             BindingContext = new RutinasViewModel();
         }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is HistorialSesionesViewModel vm)
+            {
+                await vm.CargarSesionesAsync();
+            }
+        }
+
     }
 }

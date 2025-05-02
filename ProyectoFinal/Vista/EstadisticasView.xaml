@@ -1,0 +1,38 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Vista.EstadisticasView"
+             Title="Estadísticas">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+            <Label Text="Estadísticas de Entrenamiento" FontSize="32" HorizontalOptions="Center" />
+
+            <!-- Mensaje de error o advertencia -->
+            <Label Text="{Binding Mensaje}" TextColor="Red" HorizontalOptions="Center" />
+
+            <!-- Estadísticas principales -->
+            <StackLayout Spacing="15">
+                <Label Text="Total de Sesiones" FontSize="24" />
+                <Label Text="{Binding TotalSesiones}" FontSize="18" />
+
+                <Label Text="Promedio de Ejercicios por Sesión" FontSize="24" />
+                <Label Text="{Binding PromedioEjerciciosPorSesion}" FontSize="18" />
+
+                <Label Text="Promedio de Peso Levantado" FontSize="24" />
+                <Label Text="{Binding PromedioPesoLevado}" FontSize="18" />
+
+                <Label Text="Ejercicio con Mayor Progreso en Peso" FontSize="24" />
+                <Label Text="{Binding MejoraEnPesoLevado}" FontSize="18" />
+
+                <Label Text="Ejercicio con Mayor Progreso en Repeticiones" FontSize="24" />
+                <Label Text="{Binding MejoraEnRepeticiones}" FontSize="18" />
+
+                <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" />
+                <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" />
+
+                <Label Text="Frecuencia Promedio de Entrenamiento" FontSize="24" />
+                <Label Text="{Binding FrecuenciaEntrenamientos}" FontSize="18" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -22,6 +22,9 @@
             </ListView.ItemTemplate>
         </ListView>
 
+        <Button Text="Registrar Datos"
+        Command="{Binding IrARegistrarRutinaCommand}" />
+
         <!-- Detalle de la Rutina Seleccionada -->
         <StackLayout Padding="10" IsVisible="{Binding DetallesVisible}">
             <Label Text="Detalles de la Rutina" FontSize="24" HorizontalOptions="Center" />

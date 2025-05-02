@@ -99,6 +99,15 @@
 	  <MauiXaml Update="Vista\EjerciciosView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Vista\EstadisticasView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vista\HistorialSesionesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vista\RegistrarEntrenamientoView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Vista\RutinasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

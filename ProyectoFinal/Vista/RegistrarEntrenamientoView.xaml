@@ -1,0 +1,59 @@
+<ContentPage x:Class="ProyectoFinal.Vista.RegistrarEntrenamientoView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="EntrenamientoPage"
+             Title="Registrar Entrenamiento">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Registrar Entrenamiento" FontSize="24" HorizontalOptions="Center" />
+
+        <Label Text="Ejercicios de la Rutina" FontSize="20" Margin="0,10" />
+
+        <!-- Usamos solo CollectionView (ya tiene scroll) -->
+        <CollectionView ItemsSource="{Binding EjerciciosRutina}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" Padding="10" Margin="5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Nombre}" FontSize="18" FontAttributes="Bold" />
+
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="Número de series:" />
+                                <Entry Text="{Binding NumeroSeriesDeseadas, Mode=TwoWay}"
+                                       Keyboard="Numeric"
+                                       WidthRequest="50" />
+                                <Button Text="Aplicar"
+                                        Command="{Binding Source={x:Reference EntrenamientoPage}, Path=BindingContext.ActualizarSeriesCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </HorizontalStackLayout>
+
+                            <CollectionView ItemsSource="{Binding Series}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Label Text="Serie:" />
+                                            <Label Text="{Binding SerieNumero}" />
+                                            <Entry Placeholder="Reps"
+                                                   Keyboard="Numeric"
+                                                   Text="{Binding Repeticiones, Mode=TwoWay}" WidthRequest="60" />
+                                            <Entry Placeholder="Peso"
+                                                   Keyboard="Numeric"
+                                                   Text="{Binding Peso, Mode=TwoWay}" WidthRequest="60" />
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Guardar Sesión"
+                Command="{Binding GuardarSesionCommand}"
+                BackgroundColor="Green"
+                TextColor="White"
+                CornerRadius="10"
+                Margin="20,10" />
+    </VerticalStackLayout>
+</ContentPage>
