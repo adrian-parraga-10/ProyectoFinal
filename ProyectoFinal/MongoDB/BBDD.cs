@@ -144,6 +144,97 @@ public class BBDD
 
 
 
+    public async Task GuardarConsumoDiarioAsync(ConsumoDiario consumo)
+    {
+        consumo.Fecha = consumo.Fecha.Date.ToUniversalTime();  // Convertimos a UTC y eliminamos la hora
+
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+        await collection.InsertOneAsync(consumo);
+    }
+
+
+    public async Task AgregarAlimentoADiaAsync(ObjectId usuarioId, DateTime fecha, ConsumoAlimento alimento)
+    {
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+
+        var filtro = Builders<ConsumoDiario>.Filter.And(
+            Builders<ConsumoDiario>.Filter.Eq(c => c.UsuarioId, usuarioId),
+            Builders<ConsumoDiario>.Filter.Eq(c => c.Fecha, fecha.Date)
+        );
+
+        var update = Builders<ConsumoDiario>.Update.Push(c => c.AlimentosConsumidos, alimento);
+
+        var options = new UpdateOptions { IsUpsert = true }; // crea el documento si no existe
+
+        await collection.UpdateOneAsync(filtro, update, options);
+    }
+
+
+    public async Task<ConsumoDiario> ObtenerConsumoDiarioPorFechaAsync(ObjectId usuarioId, DateTime fecha)
+    {
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+
+        var filtro = Builders<ConsumoDiario>.Filter.And(
+            Builders<ConsumoDiario>.Filter.Eq(c => c.UsuarioId, usuarioId),
+            Builders<ConsumoDiario>.Filter.Eq(c => c.Fecha, fecha.Date)
+        );
+
+        return await collection.Find(filtro).FirstOrDefaultAsync();
+    }
+
+    public async Task ReemplazarConsumoDiarioAsync(ConsumoDiario consumo)
+    {
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+        var filtro = Builders<ConsumoDiario>.Filter.Eq(c => c.Id, consumo.Id);
+        await collection.ReplaceOneAsync(filtro, consumo);
+    }
+
+
+    public async Task<List<ConsumoDiario>> ObtenerConsumosPorUsuario(ObjectId usuarioId)
+    {
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+        var filtro = Builders<ConsumoDiario>.Filter.Eq(c => c.UsuarioId, usuarioId);
+        var lista = await collection.Find(filtro).SortByDescending(c => c.Fecha).ToListAsync();
+        return lista;
+    }
+
+    public async Task EliminarAlimentoDeDiaAsync(ObjectId usuarioId, DateTime fecha, ConsumoAlimento alimento)
+    {
+        var collection = _database.GetCollection<ConsumoDiario>("consumos");
+
+        // Filtro para encontrar el documento de consumo del usuario y la fecha
+        var filtro = Builders<ConsumoDiario>.Filter.And(
+            Builders<ConsumoDiario>.Filter.Eq(c => c.UsuarioId, usuarioId),
+            Builders<ConsumoDiario>.Filter.Eq(c => c.Fecha, fecha.Date)
+        );
+
+        // Operación de Pull para eliminar solo el alimento con el ConsumoId único
+        var update = Builders<ConsumoDiario>.Update.PullFilter(
+            c => c.AlimentosConsumidos,
+            Builders<ConsumoAlimento>.Filter.Eq(a => a.ConsumoId, alimento.ConsumoId)
+        );
+
+        // Realizamos la actualización en la base de datos
+        await collection.UpdateOneAsync(filtro, update);
+    }
+
+    public async Task<Usuario> ObtenerUsuarioPorIdAsync(ObjectId id)
+    {
+        var collection = _database.GetCollection<Usuario>("usuarios");
+        return await collection.Find(u => u.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task ActualizarUsuarioAsync(Usuario usuario)
+    {
+        var collection = _database.GetCollection<Usuario>("usuarios");
+        var filtro = Builders<Usuario>.Filter.Eq(u => u.Id, usuario.Id);
+        await collection.ReplaceOneAsync(filtro, usuario);
+    }
+
+
+
+
+
 
 
 }

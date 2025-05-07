@@ -46,5 +46,20 @@
          Title="Estadisticas"
          ContentTemplate="{DataTemplate local:EstadisticasView}" />
 
+    <ShellContent Route="ConsumoDiarioView"
+          Icon="question.png"
+          Title="Consumo"
+          ContentTemplate="{DataTemplate local:ConsumoDiarioView}" />
+
+    <ShellContent Route="HistorialConsumoView"
+          Icon="question.png"
+          Title="Historial Consumos"
+          ContentTemplate="{DataTemplate local:HistorialConsumoView}" />
+
+    <ShellContent Route="PerfilView"
+          Icon="question.png"
+          Title="Perfil"
+          ContentTemplate="{DataTemplate local:PerfilView}" />
+
 
 </Shell>

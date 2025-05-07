@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Vista.HistorialConsumoView"
+             Title="HistorialConsumoView">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+
+            <!-- DatePicker para seleccionar la fecha -->
+            <DatePicker Date="{Binding FechaSeleccionada}"
+                        MinimumDate="{Binding FechaMinima}"
+                        MaximumDate="{Binding FechaMaxima}" />
+
+            <Label Text="Alimentos consumidos ese día:" FontAttributes="Bold" FontSize="18" />
+
+            <CollectionView ItemsSource="{Binding AlimentosDeEseDia}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" Orientation="Vertical">
+                            <Label Text="{Binding Nombre}" FontSize="16" />
+                            <Label Text="{Binding CantidadGramos}" FontSize="14" />
+                            <Label Text="{Binding Calorias, StringFormat='Cal: {0} kcal'}" FontSize="12" />
+                            <Label Text="{Binding Proteinas, StringFormat='Prot: {0} g'}" FontSize="12" />
+                            <Label Text="{Binding Carbohidratos, StringFormat='Carb: {0} g'}" FontSize="12" />
+                            <Label Text="{Binding Grasas, StringFormat='Gras: {0} g'}" FontSize="12" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

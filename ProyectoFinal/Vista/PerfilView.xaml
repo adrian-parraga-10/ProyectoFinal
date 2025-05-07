@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Vista.PerfilView"
+             Title="PerfilView">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+
+            <Label Text="Datos personales" FontSize="22" FontAttributes="Bold" />
+
+            <Entry Placeholder="Nombre" Text="{Binding Usuario.Nombre}" />
+            <Entry Placeholder="Email" Text="{Binding Usuario.Email}" />
+            <Entry Placeholder="Edad" Keyboard="Numeric" Text="{Binding Usuario.Edad}" />
+            <Entry Placeholder="Sexo" Text="{Binding Usuario.Sexo}" />
+            <Entry Placeholder="Peso (kg)" Keyboard="Numeric" Text="{Binding Usuario.Peso}" />
+            <Entry Placeholder="Altura (cm)" Keyboard="Numeric" Text="{Binding Usuario.Altura}" />
+
+            <Label Text="Objetivo" FontSize="20" FontAttributes="Bold" />
+            <Picker Title="Seleccionar objetivo" ItemsSource="{Binding Objetivos}" SelectedItem="{Binding Usuario.Objetivos[0]}" />
+
+            <Button Text="Guardar Cambios" Command="{Binding GuardarCambiosCommand}" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
