@@ -2,45 +2,121 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.AlimentosView"
-             Title="Alimentos">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
 
-    <Grid Padding="30" ColumnSpacing="20">
-        <!-- Definir las dos columnas -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>
+    <Grid Padding="20" RowSpacing="20">
+        <!-- Filas: Cabecera + Contenido -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <!-- Lista de Alimentos en la primera columna -->
-        <ListView ItemsSource="{Binding Alimentos}"
-                  SeparatorVisibility="Default"
-                  SelectedItem="{Binding AlimentoSeleccionado}"
-                  ItemTapped="OnItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Nombre}" FontSize="20" />
-                            <Label Text="{Binding Categoria}" FontSize="16" TextColor="Gray"/>
-                            <Label Text="{Binding Calorias}" FontSize="16" TextColor="Gray"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <!-- Cuadro de Detalles en la segunda columna -->
-        <StackLayout Grid.Column="1" Padding="10">
-            <Label Text="Detalles del Alimento" FontSize="24" HorizontalOptions="Center" />
-            <Label Text="{Binding AlimentoSeleccionado.Nombre}" FontSize="20" />
-            <Label Text="{Binding AlimentoSeleccionado.Categoria}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Calorias}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Proteinas}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Carbohidratos}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Grasas}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Fibra}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding AlimentoSeleccionado.Origen}" FontSize="16" TextColor="Gray"/>
+        <!-- Cabecera -->
+        <StackLayout Grid.Row="0" Spacing="4">
+            <Label Text="🧃 Alimentos"
+                   FontSize="32"
+                   TextColor="#00FF99"
+                   FontAttributes="Bold" />
+            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
         </StackLayout>
 
+        <!-- Contenido: Lista y detalles -->
+        <Grid Grid.Row="1" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Lista de alimentos -->
+            <CollectionView ItemsSource="{Binding Alimentos}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding AlimentoSeleccionado}"
+                            SelectionChanged="OnItemTapped">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#1E1E1E"
+                               BorderColor="#2E2E2E"
+                               CornerRadius="12"
+                               Margin="5"
+                               Padding="12"
+                               HasShadow="False">
+                            <StackLayout>
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Categoria}"
+                                       FontSize="14"
+                                       TextColor="#AAAAAA" />
+                                <Label Text="{Binding Calorias, StringFormat='🔥 {0} cal'}"
+                                       FontSize="14"
+                                       TextColor="#AAAAAA" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Detalles del alimento -->
+            <StackLayout Grid.Column="1"
+                         Padding="10"
+                         Spacing="15">
+                <Label Text="Detalles"
+                       FontSize="26"
+                       TextColor="#00FF99"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+
+                <Frame BackgroundColor="#1E1E1E"
+                       CornerRadius="12"
+                       Padding="20"
+                       HasShadow="False">
+                    <StackLayout Spacing="10">
+                        <Label Text="{Binding AlimentoSeleccionado.Nombre}"
+                               FontSize="20"
+                               TextColor="White"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Categoria, StringFormat='🍽 Categoría: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Calorias, StringFormat='🔥 Calorías: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Proteinas, StringFormat='💪 Proteínas: {0}g'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Carbohidratos, StringFormat='🍞 Carbohidratos: {0}g'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Grasas, StringFormat='🥑 Grasas: {0}g'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Fibra, StringFormat='🌿 Fibra: {0}g'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding AlimentoSeleccionado.Origen, StringFormat='🌍 Origen: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Botón Agregar -->
+                <Button Text="➕ Agregar alimento"
+                        BackgroundColor="#00FF99"
+                        TextColor="Black"
+                        CornerRadius="10"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Command="{Binding AgregarAlimentoCommand}" />
+            </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

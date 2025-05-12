@@ -4,24 +4,67 @@
              xmlns:viewmodels="clr-namespace:ProyectoFinal.ViewModels"
              x:Class="ProyectoFinal.Login"
              xmlns:local="clr-namespace:ProyectoFinal"
-             Title="Iniciar Sesión">
+             BackgroundColor="#121212">
 
-   
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="20"
+                             VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="Center"
+                             WidthRequest="300">
 
-    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
-        <Label Text="Iniciar sesión" FontSize="32" HorizontalOptions="Center" />
+            <!-- Título grande -->
+            <Label Text="Bienvenido de nuevo"
+                   FontSize="32"
+                   TextColor="#00FF99"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-        <!-- Vinculamos el campo de correo al ViewModel -->
-        <Entry Text="{Binding Email}" Placeholder="Correo electrónico" Keyboard="Email" />
+            <!-- Subtítulo -->
+            <Label Text="Empieza a entrenar y alimentarte mejor"
+                   FontSize="16"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
 
-        <!-- Vinculamos el campo de contraseña al ViewModel -->
-        <Entry Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True" />
+            <!-- Campo Email -->
+            <Frame CornerRadius="10"
+                   Padding="10"
+                   BackgroundColor="#1E1E1E">
+                <Entry Text="{Binding Email}"
+                       Placeholder="Correo electrónico"
+                       Keyboard="Email"
+                       TextColor="White"
+                       PlaceholderColor="#AAAAAA"
+                       BackgroundColor="Transparent" />
+            </Frame>
 
-        <!-- Botón que ejecuta la lógica del ViewModel -->
-        <Button Text="Iniciar sesión" Clicked="OnLoginButtonClicked" />
+            <!-- Campo Contraseña -->
+            <Frame CornerRadius="10"
+                   Padding="10"
+                   BackgroundColor="#1E1E1E">
+                <Entry Text="{Binding Password}"
+                       Placeholder="Contraseña"
+                       IsPassword="True"
+                       TextColor="White"
+                       PlaceholderColor="#AAAAAA"
+                       BackgroundColor="Transparent" />
+            </Frame>
 
-        <!-- Mensaje de estado -->
-        <Label Text="{Binding StatusMessage}" TextColor="Red" HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            <!-- Botón -->
+            <Button Text="Iniciar sesión"
+                    Clicked="OnLoginButtonClicked"
+                    BackgroundColor="#00FF99"
+                    TextColor="Black"
+                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    HeightRequest="50" />
 
+            <!-- Estado -->
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="Red"
+                   FontSize="14"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+

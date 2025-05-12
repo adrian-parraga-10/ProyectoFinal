@@ -2,49 +2,109 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.EjerciciosView"
-             Title="Ejercicios">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
 
-    <Grid Padding="30" ColumnSpacing="20">
-        <!-- Definir las dos columnas -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>
+    <Grid Padding="20" RowSpacing="20">
+        <!-- Cabecera -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <!-- Lista de Ejercicios en la primera columna -->
-        <ListView ItemsSource="{Binding Ejercicios}"
-                  SeparatorVisibility="Default"
-                  SelectedItem="{Binding EjercicioSeleccionado}"
-                  ItemTapped="OnItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Nombre}" FontSize="20" />
-                            <Label Text="{Binding Categoria}" FontSize="16" TextColor="Gray"/>
-                            <Label Text="{Binding Nivel}" FontSize="16" TextColor="Gray"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <!-- Cuadro de Detalles en la segunda columna -->
-        <StackLayout Grid.Column="1" Padding="10">
-            <Label Text="Detalles del Ejercicio" FontSize="24" HorizontalOptions="Center" />
-            <Label Text="{Binding EjercicioSeleccionado.Nombre}" FontSize="20" />
-            <Label Text="{Binding EjercicioSeleccionado.Categoria}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding EjercicioSeleccionado.Descripcion}" FontSize="16" TextColor="Gray"/>
-            <Label Text="{Binding EjercicioSeleccionado.Nivel}" FontSize="16" TextColor="Gray"/>
-            <Label Text="Músculos Trabajados:" FontSize="16" TextColor="Black"/>
-            <StackLayout>
-                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[0]}" FontSize="16" TextColor="Gray"/>
-                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[1]}" FontSize="16" TextColor="Gray"/>
-                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[2]}" FontSize="16" TextColor="Gray"/>
-                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[3]}" FontSize="16" TextColor="Gray"/>
-                <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[4]}" FontSize="16" TextColor="Gray"/>
-            </StackLayout>
+        <StackLayout Grid.Row="0" Spacing="4">
+            <Label Text="Ejercicios"
+                   FontSize="32"
+                   TextColor="#00FF99"
+                   FontAttributes="Bold" />
+            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
         </StackLayout>
 
+        <!-- Contenido principal -->
+        <Grid Grid.Row="1" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Lista de ejercicios -->
+            <CollectionView ItemsSource="{Binding Ejercicios}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding EjercicioSeleccionado}"
+                            SelectionChanged="OnItemTapped">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#1E1E1E"
+                               BorderColor="#2E2E2E"
+                               CornerRadius="12"
+                               Margin="5"
+                               Padding="12"
+                               HasShadow="False">
+                            <StackLayout>
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Categoria}"
+                                       FontSize="14"
+                                       TextColor="#AAAAAA" />
+                                <Label Text="{Binding Nivel, StringFormat='Nivel: {0}'}"
+                                       FontSize="14"
+                                       TextColor="#AAAAAA" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Detalles -->
+            <StackLayout Grid.Column="1"
+                         Padding="10"
+                         Spacing="15">
+                <Label Text="Detalles del ejercicio"
+                       FontSize="26"
+                       TextColor="#00FF99"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+
+                <Frame BackgroundColor="#1E1E1E"
+                       CornerRadius="12"
+                       Padding="20"
+                       HasShadow="False">
+                    <StackLayout Spacing="10">
+                        <Label Text="{Binding EjercicioSeleccionado.Nombre}"
+                               FontSize="20"
+                               TextColor="White"
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding EjercicioSeleccionado.Categoria, StringFormat='Categoría: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding EjercicioSeleccionado.Descripcion, StringFormat='Descripción: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="{Binding EjercicioSeleccionado.Nivel, StringFormat='Nivel: {0}'}"
+                               FontSize="14"
+                               TextColor="#AAAAAA" />
+
+                        <Label Text="Músculos trabajados:"
+                               FontSize="14"
+                               TextColor="#AAAAAA"
+                               FontAttributes="Bold" />
+
+                        <StackLayout>
+                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[0]}" FontSize="14" TextColor="#AAAAAA"/>
+                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[1]}" FontSize="14" TextColor="#AAAAAA"/>
+                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[2]}" FontSize="14" TextColor="#AAAAAA"/>
+                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[3]}" FontSize="14" TextColor="#AAAAAA"/>
+                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[4]}" FontSize="14" TextColor="#AAAAAA"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>
+

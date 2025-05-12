@@ -1,35 +1,76 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.HistorialConsumoView"
-             Title="HistorialConsumoView">
+             Title="Historial de Consumo"
+             BackgroundColor="#121212">
 
     <ScrollView>
-        <StackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- DatePicker para seleccionar la fecha -->
-            <DatePicker Date="{Binding FechaSeleccionada}"
-                        MinimumDate="{Binding FechaMinima}"
-                        MaximumDate="{Binding FechaMaxima}" />
+            <Label Text="Selecciona una fecha"
+                   FontSize="18"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
 
-            <Label Text="Alimentos consumidos ese día:" FontAttributes="Bold" FontSize="18" />
+            <!-- Estilizado del DatePicker -->
+            <Frame BorderColor="#4CAF50"
+                   CornerRadius="10"
+                   Padding="10"
+                   BackgroundColor="#1E1E1E">
+                <DatePicker Date="{Binding FechaSeleccionada}"
+                            MinimumDate="{Binding FechaMinima}"
+                            MaximumDate="{Binding FechaMaxima}"
+                            TextColor="White"
+                            BackgroundColor="#1E1E1E"/>
+            </Frame>
+
+            <Label Text="Alimentos consumidos ese día:"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="White"/>
 
             <CollectionView ItemsSource="{Binding AlimentosDeEseDia}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" Orientation="Vertical">
-                            <Label Text="{Binding Nombre}" FontSize="16" />
-                            <Label Text="{Binding CantidadGramos}" FontSize="14" />
-                            <Label Text="{Binding Calorias, StringFormat='Cal: {0} kcal'}" FontSize="12" />
-                            <Label Text="{Binding Proteinas, StringFormat='Prot: {0} g'}" FontSize="12" />
-                            <Label Text="{Binding Carbohidratos, StringFormat='Carb: {0} g'}" FontSize="12" />
-                            <Label Text="{Binding Grasas, StringFormat='Gras: {0} g'}" FontSize="12" />
-                        </StackLayout>
+                        <Frame Margin="0,5"
+                               Padding="15"
+                               BorderColor="#4CAF50"
+                               BackgroundColor="#1E1E1E"
+                               CornerRadius="12"
+                               HasShadow="True">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding Nombre}" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+                                <Label Text="{Binding CantidadGramos, StringFormat='Cantidad: {0} g'}" FontSize="14" TextColor="White"/>
+                                <Label Text="{Binding Calorias, StringFormat='Calorías: {0} kcal'}" FontSize="12" TextColor="White"/>
+                                <Label Text="{Binding Proteinas, StringFormat='Proteínas: {0} g'}" FontSize="12" TextColor="White"/>
+                                <Label Text="{Binding Carbohidratos, StringFormat='Carbohidratos: {0} g'}" FontSize="12" TextColor="White"/>
+                                <Label Text="{Binding Grasas, StringFormat='Grasas: {0} g'}" FontSize="12" TextColor="White"/>
+                            </VerticalStackLayout>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-        </StackLayout>
+            <Label Text="Distribución de macronutrientes"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <Frame BorderColor="#4CAF50" CornerRadius="15" Padding="20" BackgroundColor="Transparent">
+                <microcharts:ChartView 
+                    Chart="{Binding GraficoMacros}" 
+                    HeightRequest="550"
+                    WidthRequest="550"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BackgroundColor="Transparent"/>
+            </Frame>
+
+
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>

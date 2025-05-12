@@ -232,6 +232,26 @@ public class BBDD
     }
 
 
+    public async Task GuardarProgresoFisicoAsync(ProgresoFisico progreso)
+    {
+        var collection = _database.GetCollection<ProgresoFisico>("progresos");
+        await collection.InsertOneAsync(progreso);
+    }
+
+    public async Task<List<ProgresoFisico>> ObtenerProgresosUsuarioAsync(ObjectId usuarioId)
+    {
+        var collection = _database.GetCollection<ProgresoFisico>("progresos");
+        var filtro = Builders<ProgresoFisico>.Filter.Eq(p => p.UsuarioId, usuarioId);
+        return await collection.Find(filtro).SortBy(p => p.Fecha).ToListAsync();
+    }
+
+
+    public async Task ActualizarPesoUsuarioAsync(ObjectId usuarioId, double nuevoPeso)
+    {
+        var collection = _database.GetCollection<Usuario>("usuarios");
+        var update = Builders<Usuario>.Update.Set(u => u.Peso, nuevoPeso);
+        await collection.UpdateOneAsync(u => u.Id == usuarioId, update);
+    }
 
 
 

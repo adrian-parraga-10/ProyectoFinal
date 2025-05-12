@@ -1,109 +1,18 @@
 ﻿using ProyectoFinal.Modelos;
 using ProyectoFinal.Singleton;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using Microcharts;
+using SkiaSharp;
+
 
 namespace ProyectoFinal.ViewsModel
 {
     public class EstadisticasViewModel : INotifyPropertyChanged
     {
         private readonly BBDD _bbdd = new BBDD();
-        private ObservableCollection<SesionEntrenamiento> _sesiones;
-        private string _mensaje;
-
-        public string Mensaje
-        {
-            get => _mensaje;
-            set
-            {
-                _mensaje = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _totalSesiones;
-        public string TotalSesiones
-        {
-            get => _totalSesiones;
-            set
-            {
-                _totalSesiones = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _promedioEjerciciosPorSesion;
-        public string PromedioEjerciciosPorSesion
-        {
-            get => _promedioEjerciciosPorSesion;
-            set
-            {
-                _promedioEjerciciosPorSesion = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _promedioRepeticionesPorEjercicio;
-        public string PromedioRepeticionesPorEjercicio
-        {
-            get => _promedioRepeticionesPorEjercicio;
-            set
-            {
-                _promedioRepeticionesPorEjercicio = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _mejoraEnRepeticiones;
-        public string MejoraEnRepeticiones
-        {
-            get => _mejoraEnRepeticiones;
-            set
-            {
-                _mejoraEnRepeticiones = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _promedioPesoLevado;
-        public string PromedioPesoLevado
-        {
-            get => _promedioPesoLevado;
-            set
-            {
-                _promedioPesoLevado = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _mejoraEnPesoLevado;
-        public string MejoraEnPesoLevado
-        {
-            get => _mejoraEnPesoLevado;
-            set
-            {
-                _mejoraEnPesoLevado = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _frecuenciaEntrenamientos;
-        public string FrecuenciaEntrenamientos
-        {
-            get => _frecuenciaEntrenamientos;
-            set
-            {
-                _frecuenciaEntrenamientos = value;
-                OnPropertyChanged();
-            }
-        }
-
+        private ObservableCollection<SesionEntrenamiento> _sesiones = new();
 
         public ObservableCollection<SesionEntrenamiento> Sesiones
         {
@@ -115,6 +24,75 @@ namespace ProyectoFinal.ViewsModel
             }
         }
 
+        private DateTime _fechaInicio = DateTime.Now.AddDays(-7);
+        public DateTime FechaInicio
+        {
+            get => _fechaInicio;
+            set
+            {
+                _fechaInicio = value;
+                OnPropertyChanged();
+                CalcularEstadisticasFiltradas();
+            }
+        }
+
+        private DateTime _fechaFin = DateTime.Now;
+        public DateTime FechaFin
+        {
+            get => _fechaFin;
+            set
+            {
+                _fechaFin = value;
+                OnPropertyChanged();
+                CalcularEstadisticasFiltradas();
+            }
+        }
+
+        private Chart _graficoPesoSemanal;
+        public Chart GraficoPesoSemanal
+        {
+            get => _graficoPesoSemanal;
+            set
+            {
+                _graficoPesoSemanal = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private string _mensaje;
+        public string Mensaje
+        {
+            get => _mensaje;
+            set
+            {
+                _mensaje = value;
+                OnPropertyChanged();
+                MensajeVisible = !string.IsNullOrWhiteSpace(value);
+            }
+        }
+
+        private bool _mensajeVisible;
+        public bool MensajeVisible
+        {
+            get => _mensajeVisible;
+            set
+            {
+                _mensajeVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TotalSesiones { get => _totalSesiones; set { _totalSesiones = value; OnPropertyChanged(); } }
+        public string PromedioEjerciciosPorSesion { get => _promedioEjercicios; set { _promedioEjercicios = value; OnPropertyChanged(); } }
+        public string PromedioRepeticionesPorEjercicio { get => _promedioReps; set { _promedioReps = value; OnPropertyChanged(); } }
+        public string PromedioPesoLevado { get => _promedioPeso; set { _promedioPeso = value; OnPropertyChanged(); } }
+
+        private string _totalSesiones;
+        private string _promedioEjercicios;
+        private string _promedioReps;
+        private string _promedioPeso;
+
         public EstadisticasViewModel()
         {
             CargarEstadisticas();
@@ -124,74 +102,78 @@ namespace ProyectoFinal.ViewsModel
         {
             try
             {
-                // Cargar las sesiones del usuario
                 var sesiones = await _bbdd.ObtenerSesionesPorUsuario(GlobalData.Instance.UsuarioId);
-
-                if (sesiones != null && sesiones.Count > 0)
-                {
-                    Sesiones = new ObservableCollection<SesionEntrenamiento>(sesiones);
-                    CalcularEstadisticas();
-                }
-                else
-                {
-                    Mensaje = "No se han encontrado entrenamientos para este usuario.";
-                }
+                Sesiones = new ObservableCollection<SesionEntrenamiento>(sesiones);
+                CalcularEstadisticasFiltradas();
             }
             catch (Exception ex)
             {
-                Mensaje = $"Error al cargar las estadísticas: {ex.Message}";
+                Mensaje = $"Error: {ex.Message}";
             }
         }
 
-        private void CalcularEstadisticas()
+        private void CalcularEstadisticasFiltradas()
         {
-            // Total de sesiones
-            TotalSesiones = Sesiones.Count.ToString();
+            var filtradas = Sesiones.Where(s =>
+                s.FechaSesion.Date >= FechaInicio.Date &&
+                s.FechaSesion.Date <= FechaFin.Date).ToList();
 
-            // Promedio de ejercicios por sesión
-            var promedioEjercicios = Sesiones.Average(s => s.Ejercicios.Count);
-            PromedioEjerciciosPorSesion = promedioEjercicios.ToString("F2");
+            if (!filtradas.Any())
+            {
+                Mensaje = "No hay entrenamientos en este periodo.";
+                TotalSesiones = "0";
+                PromedioEjerciciosPorSesion = "0";
+                PromedioRepeticionesPorEjercicio = "0";
+                PromedioPesoLevado = "0";
+                return;
+            }
 
-            // Promedio de repeticiones por ejercicio
-            var totalRepeticiones = Sesiones.SelectMany(s => s.Ejercicios)
-                                             .SelectMany(e => e.Series)
-                                             .Sum(s => s.Repeticiones);
-            var totalEjercicios = Sesiones.SelectMany(s => s.Ejercicios).Count();
-            PromedioRepeticionesPorEjercicio = totalEjercicios > 0 ? (totalRepeticiones / totalEjercicios).ToString("F2") : "0";
+            Mensaje = ""; // limpiar
+            TotalSesiones = filtradas.Count.ToString();
 
-            // Mejora en repeticiones (última repetición vs primera repetición)
-            var mejoraRepeticiones = Sesiones.SelectMany(s => s.Ejercicios)
-                                              .SelectMany(e => e.Series)
-                                              .OrderBy(s => s.SerieNumero)
-                                              .GroupBy(s => s.SerieNumero)
-                                              .Select(g => g.Last().Repeticiones - g.First().Repeticiones)
-                                              .Max();
-            MejoraEnRepeticiones = mejoraRepeticiones > 0 ? $"Mejora en repeticiones: {mejoraRepeticiones} repeticiones" : "No hay mejora en repeticiones";
+            PromedioEjerciciosPorSesion = filtradas.Average(s => s.Ejercicios.Count).ToString("F2");
 
-            // Promedio de peso levantado
-            var promedioPeso = Sesiones.SelectMany(s => s.Ejercicios)
-                                       .SelectMany(e => e.Series)
-                                       .Average(s => s.Peso);
+            var totalReps = filtradas.SelectMany(s => s.Ejercicios).SelectMany(e => e.Series).Sum(s => s.Repeticiones);
+            var totalEjercicios = filtradas.SelectMany(s => s.Ejercicios).Count();
+            PromedioRepeticionesPorEjercicio = totalEjercicios > 0 ? (totalReps / totalEjercicios).ToString("F2") : "0";
+
+            var promedioPeso = filtradas.SelectMany(s => s.Ejercicios).SelectMany(e => e.Series).Average(s => s.Peso);
             PromedioPesoLevado = promedioPeso.ToString("F2");
 
-            // Mejora en el peso levantado
-            var mejoraPeso = Sesiones.SelectMany(s => s.Ejercicios)
-                                     .SelectMany(e => e.Series)
-                                     .OrderBy(s => s.Peso)
-                                     .LastOrDefault()?.Peso ?? 0;
-            MejoraEnPesoLevado = mejoraPeso > 0 ? $"Último peso levantado: {mejoraPeso} kg" : "No hay datos de peso";
+            // Agrupar por semana y calcular el peso promedio
+            var porSemana = Sesiones
+                .Where(s => s.FechaSesion >= FechaInicio && s.FechaSesion <= FechaFin)
+                .GroupBy(s => System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                    s.FechaSesion, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday))
+                .OrderBy(g => g.Key)
+                .Select(g =>
+                {
+                    var promedio = g.SelectMany(s => s.Ejercicios)
+                                    .SelectMany(e => e.Series)
+                                    .Average(s => s.Peso);
+                    return new ChartEntry((float)promedio)
+                    {
+                        Label = g.Key.ToString(),  // Semana
+                        ValueLabel = promedio.ToString("F1"),
+                        Color = SKColor.Parse("#00FF99")
+                    };
+                }).ToList();
 
-            // Frecuencia de entrenamientos
-            var frecuencia = Sesiones.GroupBy(s => s.FechaSesion.Date)
-                                     .Count();
-            FrecuenciaEntrenamientos = $"Frecuencia de entrenamientos: {frecuencia} días";
+            // Cambiar a LineChart
+            GraficoPesoSemanal = new LineChart
+            {
+                Entries = porSemana,
+                LineMode = LineMode.Straight,
+                LineSize = 3,
+                BackgroundColor = SKColors.Transparent,
+                LabelTextSize = 20
+            };
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string nombre = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
+        protected void OnPropertyChanged([CallerMemberName] string name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-
-
 }
+

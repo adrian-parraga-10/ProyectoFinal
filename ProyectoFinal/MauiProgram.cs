@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProyectoFinal.Vista;
+using ProyectoFinal.ViewsModel;
+using Microcharts.Maui; 
 
 namespace ProyectoFinal
 {
@@ -7,8 +10,10 @@ namespace ProyectoFinal
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
+                .UseMicrocharts() 
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -16,10 +21,15 @@ namespace ProyectoFinal
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            // Registro de servicios y vistas
+            builder.Services.AddTransient<EstadisticasViewModel>();
+            builder.Services.AddTransient<EstadisticasView>();
 
             return builder.Build();
         }
     }
 }
+

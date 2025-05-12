@@ -1,53 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ProyectoFinal.ViewsModel"
              x:Class="ProyectoFinal.Vista.CrearRutinaView"
-             Title="Crear Rutina">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
 
-  
+    <ScrollView>
+        <Grid Padding="20" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <!-- Entradas para nombre y descripción de la rutina -->
-        <Label Text="Nombre de la Rutina"/>
-        <Entry Text="{Binding NombreRutina}" Placeholder="Ej. Full Body"/>
+            <!-- Cabecera -->
+            <StackLayout Grid.Row="0" Spacing="4">
+                <Label Text="🏋️ Crear Rutina"
+                       FontSize="32"
+                       TextColor="#00FF99"
+                       FontAttributes="Bold" />
+                <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
+            </StackLayout>
 
-        <Label Text="Descripción"/>
-        <Editor Text="{Binding DescripcionRutina}" HeightRequest="80"/>
+            <!-- Contenido -->
+            <StackLayout Grid.Row="1" Spacing="20">
 
-        <!-- Colección de ejercicios -->
-        <Label Text="Selecciona Ejercicios:"/>
-        <CollectionView ItemsSource="{Binding TodosEjercicios}" SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" Orientation="Horizontal">
-                        <!-- Agregar TapGesture para selección -->
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CrearRutinaViewModel}}, Path=ActualizarSeleccionCommand}" 
-                                CommandParameter="{Binding .}" />
-                        </StackLayout.GestureRecognizers>
+                <!-- Nombre -->
+                <Label Text="Nombre de la Rutina" TextColor="#EEEEEE" />
+                <Entry Text="{Binding NombreRutina}"
+                       Placeholder="Ej. Full Body"
+                       BackgroundColor="#1E1E1E"
+                       TextColor="White"
+                       PlaceholderColor="#AAAAAA"
+                       HeightRequest="40"
+                       />
 
-                        <Label Text="{Binding Nombre}" FontSize="18" />
-                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="Gray" Margin="10,0,0,0"/>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <!-- Descripción -->
+                <Label Text="Descripción" TextColor="#EEEEEE" />
+                <Editor Text="{Binding DescripcionRutina}"
+                        BackgroundColor="#1E1E1E"
+                        TextColor="White"
+                        Placeholder="Descripción breve..."
+                        AutoSize="TextChanges"
+                        HeightRequest="80"/>
 
-        <!-- Mostrar los ejercicios seleccionados -->
-        <Label Text="Ejercicios Seleccionados:" FontSize="18" Margin="0,20,0,10"/>
-        <CollectionView ItemsSource="{Binding EjerciciosSeleccionados}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" Orientation="Horizontal">
-                        <Label Text="{Binding Nombre}" FontSize="18" />
-                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="Gray" Margin="10,0,0,0"/>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <!-- Lista de ejercicios disponibles -->
+                <Label Text="Selecciona Ejercicios"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#00FF99" />
 
-        <!-- Botón para guardar la rutina -->
-        <Button Text="Guardar Rutina" Command="{Binding GuardarRutinaCommand}" />
-    </VerticalStackLayout>
+                <CollectionView ItemsSource="{Binding TodosEjercicios}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="#1E1E1E"
+                                   BorderColor="#2E2E2E"
+                                   CornerRadius="12"
+                                   Margin="5"
+                                   Padding="12"
+                                   HasShadow="False">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CrearRutinaViewModel}}, Path=ActualizarSeleccionCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding Nombre}" FontSize="16" TextColor="White" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Categoria}" FontSize="14" TextColor="#AAAAAA"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Ejercicios seleccionados -->
+                <Label Text="Ejercicios Seleccionados"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#00FF99"
+                       Margin="0,20,0,0"/>
+
+                <CollectionView ItemsSource="{Binding EjerciciosSeleccionados}" HeightRequest="150">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="#1E1E1E"
+                                   BorderColor="#2E2E2E"
+                                   CornerRadius="12"
+                                   Margin="5"
+                                   Padding="12"
+                                   HasShadow="False">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="{Binding Nombre}" FontSize="16" TextColor="White" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Categoria}" FontSize="14" TextColor="#AAAAAA"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Botón para guardar -->
+                <Button Text="💾 Guardar Rutina"
+                        BackgroundColor="#00FF99"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Command="{Binding GuardarRutinaCommand}"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

@@ -56,6 +56,11 @@
           Title="Historial Consumos"
           ContentTemplate="{DataTemplate local:HistorialConsumoView}" />
 
+    <ShellContent Route="SeguimientoFisicoView"
+         Icon="question.png"
+         Title="Seguimiento fisico"
+         ContentTemplate="{DataTemplate local:SeguimientoFisicoView}" />
+
     <ShellContent Route="PerfilView"
           Icon="question.png"
           Title="Perfil"

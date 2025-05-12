@@ -8,7 +8,6 @@
     Title="ProyectoFinal">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate local:Login}"
         Route="Login" />
 

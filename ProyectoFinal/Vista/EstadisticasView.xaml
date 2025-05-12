@@ -1,38 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.EstadisticasView"
-             Title="Estadísticas">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False"
+             Title="Estadísticas"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             >
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="20">
-            <Label Text="Estadísticas de Entrenamiento" FontSize="32" HorizontalOptions="Center" />
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Título -->
+            <StackLayout Spacing="4">
+                <Label Text="📊 Estadísticas de Entrenamiento"
+                       FontSize="32"
+                       TextColor="#00FF99"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
+            </StackLayout>
+
+            <!-- Fecha Inicio y Fin -->
+            <Label Text="Selecciona el rango de fechas:"
+                   FontSize="20"
+                   TextColor="White" />
+
+            <HorizontalStackLayout Spacing="20">
+                <VerticalStackLayout>
+                    <Label Text="Desde:" TextColor="White"/>
+                    <DatePicker Date="{Binding FechaInicio}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Hasta:" TextColor="White"/>
+                    <DatePicker Date="{Binding FechaFin}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
 
             <!-- Mensaje de error o advertencia -->
-            <Label Text="{Binding Mensaje}" TextColor="Red" HorizontalOptions="Center" />
+            <Label Text="{Binding Mensaje}"
+                   TextColor="Red"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding MensajeVisible}" />
 
-            <!-- Estadísticas principales -->
+            <!-- Estadísticas -->
             <StackLayout Spacing="15">
-                <Label Text="Total de Sesiones" FontSize="24" />
-                <Label Text="{Binding TotalSesiones}" FontSize="18" />
+                <Label Text="Total de Sesiones" FontSize="24" TextColor="White" />
+                <Label Text="{Binding TotalSesiones}" FontSize="18" TextColor="White" />
 
-                <Label Text="Promedio de Ejercicios por Sesión" FontSize="24" />
-                <Label Text="{Binding PromedioEjerciciosPorSesion}" FontSize="18" />
+                <Label Text="Promedio de Ejercicios por Sesión" FontSize="24" TextColor="White" />
+                <Label Text="{Binding PromedioEjerciciosPorSesion}" FontSize="18" TextColor="White" />
 
-                <Label Text="Promedio de Peso Levantado" FontSize="24" />
-                <Label Text="{Binding PromedioPesoLevado}" FontSize="18" />
+                <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" TextColor="White" />
+                <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" TextColor="White" />
 
-                <Label Text="Ejercicio con Mayor Progreso en Peso" FontSize="24" />
-                <Label Text="{Binding MejoraEnPesoLevado}" FontSize="18" />
+                <Label Text="Promedio de Peso Levantado" FontSize="24" TextColor="White" />
+                <Label Text="{Binding PromedioPesoLevado}" FontSize="18" TextColor="White" />
 
-                <Label Text="Ejercicio con Mayor Progreso en Repeticiones" FontSize="24" />
-                <Label Text="{Binding MejoraEnRepeticiones}" FontSize="18" />
+                <!-- Gráfico de líneas (Progreso Semanal de Peso) -->
+                <Label Text="Progreso Semanal de Peso (kg)" FontSize="24" TextColor="White" HorizontalOptions="Center"/>
 
-                <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" />
-                <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" />
-
-                <Label Text="Frecuencia Promedio de Entrenamiento" FontSize="24" />
-                <Label Text="{Binding FrecuenciaEntrenamientos}" FontSize="18" />
+                <!-- Gráfico de Líneas -->
+                <microcharts:ChartView Chart="{Binding GraficoPesoSemanal}"
+                               HeightRequest="300"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="StartAndExpand" />
             </StackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,0 +1,48 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="ProyectoFinal.Vista.SeguimientoFisicoView"
+             Title="Seguimiento Físico">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Tu peso actual (kg):" FontSize="16" TextColor="White"/>
+            <Entry Keyboard="Numeric"
+                   Text="{Binding Peso, Mode=TwoWay}" 
+                   Placeholder="Ej: 70.5" 
+                   TextColor="White"/>
+
+            <Button Text="Guardar Progreso"
+                    Command="{Binding GuardarProgresoCommand}" 
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"/>
+
+            <Label Text="Historial de Peso" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+            <CollectionView ItemsSource="{Binding HistorialProgreso}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="5" Orientation="Horizontal" Spacing="20">
+                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" TextColor="White"/>
+                            <Label Text="{Binding Peso, StringFormat='{0} kg'}" TextColor="White"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Progreso de Peso (kg)" FontSize="18" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+
+            <!-- GRAFICO -->
+            <Frame BorderColor="Gray" CornerRadius="15" Padding="20" BackgroundColor="Transparent">
+                <microcharts:ChartView 
+                    Chart="{Binding GraficoPeso}" 
+                    HeightRequest="400"
+                    WidthRequest="600" 
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

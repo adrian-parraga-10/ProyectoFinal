@@ -1,59 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ProyectoFinal.Vista.RegistrarEntrenamientoView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="EntrenamientoPage"
-             Title="Registrar Entrenamiento">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Registrar Entrenamiento" FontSize="24" HorizontalOptions="Center" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <Label Text="Ejercicios de la Rutina" FontSize="20" Margin="0,10" />
+            <!-- Título -->
+            <StackLayout Spacing="4">
+                <Label Text="🏋️ Registrar Entrenamiento"
+                       FontSize="28"
+                       TextColor="#00FF99"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
+            </StackLayout>
 
-        <!-- Usamos solo CollectionView (ya tiene scroll) -->
-        <CollectionView ItemsSource="{Binding EjerciciosRutina}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BorderColor="Gray" Padding="10" Margin="5">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Nombre}" FontSize="18" FontAttributes="Bold" />
+            <Label Text="Ejercicios de la Rutina"
+                   FontSize="20"
+                   TextColor="White"
+                   Margin="0,10,0,0" />
 
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="Número de series:" />
-                                <Entry Text="{Binding NumeroSeriesDeseadas, Mode=TwoWay}"
-                                       Keyboard="Numeric"
-                                       WidthRequest="50" />
-                                <Button Text="Aplicar"
-                                        Command="{Binding Source={x:Reference EntrenamientoPage}, Path=BindingContext.ActualizarSeriesCommand}"
-                                        CommandParameter="{Binding .}" />
-                            </HorizontalStackLayout>
+            <!-- Lista de ejercicios -->
+            <CollectionView ItemsSource="{Binding EjerciciosRutina}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#1E1E1E"
+                               BorderColor="#2E2E2E"
+                               CornerRadius="12"
+                               Padding="15"
+                               Margin="0,10"
+                               HasShadow="False">
+                            <VerticalStackLayout Spacing="10">
 
-                            <CollectionView ItemsSource="{Binding Series}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <HorizontalStackLayout Spacing="10">
-                                            <Label Text="Serie:" />
-                                            <Label Text="{Binding SerieNumero}" />
-                                            <Entry Placeholder="Reps"
-                                                   Keyboard="Numeric"
-                                                   Text="{Binding Repeticiones, Mode=TwoWay}" WidthRequest="60" />
-                                            <Entry Placeholder="Peso"
-                                                   Keyboard="Numeric"
-                                                   Text="{Binding Peso, Mode=TwoWay}" WidthRequest="60" />
-                                        </HorizontalStackLayout>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       FontAttributes="Bold" />
 
-        <Button Text="Guardar Sesión"
-                Command="{Binding GuardarSesionCommand}"
-                BackgroundColor="Green"
-                TextColor="White"
-                CornerRadius="10"
-                Margin="20,10" />
-    </VerticalStackLayout>
+                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                    <Label Text="Series:"
+                                           TextColor="#AAAAAA"
+                                           VerticalOptions="Center"/>
+                                    <Entry Text="{Binding NumeroSeriesDeseadas, Mode=TwoWay}"
+                                           Keyboard="Numeric"
+                                           WidthRequest="60"
+                                           BackgroundColor="#2E2E2E"
+                                           TextColor="White"
+                                           PlaceholderColor="#666" />
+                                    <Button Text="Aplicar"
+                                            BackgroundColor="#00FF99"
+                                            TextColor="Black"
+                                            CornerRadius="8"
+                                            FontAttributes="Bold"
+                                            HeightRequest="40"
+                                            Command="{Binding Source={x:Reference EntrenamientoPage}, Path=BindingContext.ActualizarSeriesCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </HorizontalStackLayout>
+
+                                <!-- Series dentro del ejercicio -->
+                                <CollectionView ItemsSource="{Binding Series}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label Text="Serie:"
+                                                       TextColor="#AAAAAA" />
+                                                <Label Text="{Binding SerieNumero}"
+                                                       TextColor="White" />
+                                                <Entry Placeholder="Reps"
+                                                       Keyboard="Numeric"
+                                                       Text="{Binding Repeticiones, Mode=TwoWay}"
+                                                       WidthRequest="60"
+                                                       BackgroundColor="#2E2E2E"
+                                                       TextColor="White"
+                                                       PlaceholderColor="#666" />
+                                                <Entry Placeholder="Peso"
+                                                       Keyboard="Numeric"
+                                                       Text="{Binding Peso, Mode=TwoWay}"
+                                                       WidthRequest="60"
+                                                       BackgroundColor="#2E2E2E"
+                                                       TextColor="White"
+                                                       PlaceholderColor="#666" />
+                                            </HorizontalStackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Botón guardar -->
+            <Button Text="💾 Guardar Sesión"
+                    Command="{Binding GuardarSesionCommand}"
+                    BackgroundColor="#00FF99"
+                    TextColor="Black"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Margin="0,10" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
