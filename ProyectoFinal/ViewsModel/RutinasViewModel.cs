@@ -12,6 +12,7 @@ public class RutinasViewModel : INotifyPropertyChanged
     private bool _detallesVisible;
 
     public ICommand IrARegistrarRutinaCommand { get; }
+    public ICommand EliminarRutinaCommand { get; }
 
     public Rutina RutaSeleccionada
     {
@@ -45,6 +46,7 @@ public class RutinasViewModel : INotifyPropertyChanged
     {
         CargarRutinas();
         IrARegistrarRutinaCommand = new Command(IrARegistrarRutina);
+        EliminarRutinaCommand = new Command<Rutina>(async (rutina) => await EliminarRutinaAsync(rutina));
     }
 
     private async void CargarRutinas()
@@ -78,13 +80,12 @@ public class RutinasViewModel : INotifyPropertyChanged
 
     private async void OnRutaSeleccionadaChanged()
     {
-        // Cambiar la visibilidad de los detalles según si la rutina seleccionada es válida
+        
         DetallesVisible = RutaSeleccionada != null;
-
-        // Verifica si la rutina seleccionada es válida y si realmente necesita actualizarse
+        
         if (RutaSeleccionada != null && RutaSeleccionada.Ejercicios == null)
         {
-            // Aquí solo actualizamos los ejercicios si no están ya cargados
+            
             RutaSeleccionada = await _bbdd.ObtenerRutinaConEjercicios(RutaSeleccionada.Id);
         }
     }
@@ -100,6 +101,32 @@ public class RutinasViewModel : INotifyPropertyChanged
             await Application.Current.MainPage.DisplayAlert("Aviso", "Selecciona una rutina primero.", "OK");
         }
     }
+
+    private async Task EliminarRutinaAsync(Rutina rutina)
+    {
+        if (rutina == null)
+            return;
+
+        bool confirmar = await Application.Current.MainPage.DisplayAlert(
+            "Confirmar",
+            $"¿Seguro que deseas eliminar la rutina \"{rutina.Nombre}\"?",
+            "Sí", "No");
+
+        if (!confirmar) return;
+
+        try
+        {
+            await _bbdd.EliminarRutinaAsync(rutina.Id);
+            Rutinas.Remove(rutina);
+            RutaSeleccionada = null;
+            DetallesVisible = false;
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo eliminar la rutina: {ex.Message}", "OK");
+        }
+    }
+
 
 
     public event PropertyChangedEventHandler PropertyChanged;

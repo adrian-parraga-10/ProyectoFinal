@@ -1,70 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="ProyectoFinal.UserShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ProyectoFinal.Vista"
     Shell.FlyoutBehavior="Flyout"
+    BackgroundColor="#121212"
     Title="ProyectoFinal">
 
-    <!-- Páginas específicas para usuarios -->
-    <TabBar>
-        
-        <ShellContent Title="Alimentos" ContentTemplate="{DataTemplate local:AlimentosView}" />
-
+    <!-- Sección: Entrenamiento -->
+    <FlyoutItem Title="Entrenamiento" Icon="fitness.png">
         <ShellContent Title="Rutinas" ContentTemplate="{DataTemplate local:RutinasView}" />
+        <ShellContent Title="Ejercicios" ContentTemplate="{DataTemplate local:EjerciciosView}" />
+        <ShellContent Title="Crear Rutina" ContentTemplate="{DataTemplate local:CrearRutinaView}" />
+        <ShellContent Title="Historial" ContentTemplate="{DataTemplate local:HistorialSesionesView}" />
+    </FlyoutItem>
 
-    </TabBar>
+    <!-- Sección: Nutrición -->
+    <FlyoutItem Title="Nutrición" Icon="food.png">
+        <ShellContent Title="Alimentos" ContentTemplate="{DataTemplate local:AlimentosView}" />
+        <ShellContent Title="Consumo Diario" ContentTemplate="{DataTemplate local:ConsumoDiarioView}" />
+        <ShellContent Title="Historial Consumo" ContentTemplate="{DataTemplate local:HistorialConsumoView}" />
+    </FlyoutItem>
 
-    <ShellContent Route="AlimentosView"
-         Icon="question.png"
-         Title="Alimentos"
-         ContentTemplate="{DataTemplate local:AlimentosView}" />
+    <!-- Sección: Progreso -->
+    <FlyoutItem Title="Progreso" Icon="stat.png">
+        <ShellContent Title="Seguimiento Físico" ContentTemplate="{DataTemplate local:SeguimientoFisicoView}" />
+        <ShellContent Title="Estadísticas" ContentTemplate="{DataTemplate local:EstadisticasView}" />
+    </FlyoutItem>
 
-    <ShellContent Route="EjerciciosView"
-         Icon="question.png"
-         Title="Ejercicios"
-         ContentTemplate="{DataTemplate local:EjerciciosView}" />
+    <!-- Sección: Perfil -->
+    <FlyoutItem Title="Perfil" Icon="perfil.png">
+        <ShellContent Title="Mi Perfil" ContentTemplate="{DataTemplate local:PerfilView}" />
+    </FlyoutItem>
 
-    <ShellContent Route="RutinasView"
-         Icon="question.png"
-         Title="Rutinas"
-         ContentTemplate="{DataTemplate local:RutinasView}" />
-
-    <ShellContent Route="CrearRutinaView"
-         Icon="question.png"
-         Title="Crear Rutinas"
-         ContentTemplate="{DataTemplate local:CrearRutinaView}" />
-
-    <ShellContent Route="HistorialSesionesView"
-         Icon="question.png"
-         Title="Historial Sesiones"
-         ContentTemplate="{DataTemplate local:HistorialSesionesView}" />
-
-    <ShellContent Route="EstadisticasView"
-         Icon="question.png"
-         Title="Estadisticas"
-         ContentTemplate="{DataTemplate local:EstadisticasView}" />
-
-    <ShellContent Route="ConsumoDiarioView"
-          Icon="question.png"
-          Title="Consumo"
-          ContentTemplate="{DataTemplate local:ConsumoDiarioView}" />
-
-    <ShellContent Route="HistorialConsumoView"
-          Icon="question.png"
-          Title="Historial Consumos"
-          ContentTemplate="{DataTemplate local:HistorialConsumoView}" />
-
-    <ShellContent Route="SeguimientoFisicoView"
-         Icon="question.png"
-         Title="Seguimiento fisico"
-         ContentTemplate="{DataTemplate local:SeguimientoFisicoView}" />
-
-    <ShellContent Route="PerfilView"
-          Icon="question.png"
-          Title="Perfil"
-          ContentTemplate="{DataTemplate local:PerfilView}" />
-
+    <ShellContent
+         ContentTemplate="{DataTemplate local:Login}"
+         Route="Login"
+         Icon="logout.png"
+         Title="Cerrar sesion"
+         Shell.FlyoutBehavior="Disabled"
+         Shell.NavBarIsVisible="False" />
 
 </Shell>

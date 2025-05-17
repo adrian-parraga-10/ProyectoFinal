@@ -18,16 +18,29 @@
     <ShellContent Route="AlimentosView"
         Icon="question.png"
         Title="Alimentos"
-        ContentTemplate="{DataTemplate local:AlimentosView}" />
+        ContentTemplate="{DataTemplate local:AdminAlimentosView}" />
 
     <ShellContent Route="EjerciciosView"
         Icon="question.png"
         Title="Ejercicios"
-        ContentTemplate="{DataTemplate local:EjerciciosView}" />
+        ContentTemplate="{DataTemplate local:AdminEjerciciosView}" />
 
     <ShellContent Route="RutinasView"
         Icon="question.png"
         Title="Rutinas"
         ContentTemplate="{DataTemplate local:RutinasView}" />
+
+    <ShellContent
+         ContentTemplate="{DataTemplate local:Login}"
+         Route="Login"
+         Title="Cerrar sesion"
+         Shell.FlyoutBehavior="Disabled"
+         Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+          Title="Usuarios"
+          ContentTemplate="{DataTemplate local:AdminUsuariosView}"/>
+
+
 
 </Shell>

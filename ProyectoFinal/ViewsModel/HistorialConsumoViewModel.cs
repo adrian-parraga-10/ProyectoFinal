@@ -2,17 +2,8 @@
 using ProyectoFinal.Modelos;
 using ProyectoFinal.Singleton;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microcharts;
-using SkiaSharp;
-using System.Linq;
 
 
 public class HistorialConsumoViewModel : INotifyPropertyChanged
@@ -33,7 +24,7 @@ public class HistorialConsumoViewModel : INotifyPropertyChanged
             {
                 _fechaSeleccionada = value;
                 OnPropertyChanged(nameof(FechaSeleccionada));
-                _ = CargarAlimentosPorFecha(); // Cargar alimentos para la fecha seleccionada
+                CargarAlimentosPorFecha(); 
             }
         }
     }
@@ -74,13 +65,18 @@ public class HistorialConsumoViewModel : INotifyPropertyChanged
     }
 
 
-    private void ActualizarGrafico()
+    private async void ActualizarGrafico()
     {
         if (AlimentosDeEseDia == null || !AlimentosDeEseDia.Any())
         {
             GraficoMacros = null;
             return;
         }
+
+        // Limpiar el gráfico antes de asignar uno nuevo
+        GraficoMacros = null;
+        OnPropertyChanged(nameof(GraficoMacros)); 
+        await Task.Delay(50);
 
         float proteinas = (float)AlimentosDeEseDia.Sum(a => a.Proteinas);
         float carbohidratos = (float)AlimentosDeEseDia.Sum(a => a.Carbohidratos);

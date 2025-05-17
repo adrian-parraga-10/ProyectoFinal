@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:ProyectoFinal.ViewModels"
-             x:Class="ProyectoFinal.Login"
-             xmlns:local="clr-namespace:ProyectoFinal"
-             BackgroundColor="#121212">
+             x:Class="ProyectoFinal.Vista.Login"
+             BackgroundColor="#121212"
+             Title="Iniciar sesión">
 
     <ScrollView>
         <VerticalStackLayout Padding="20"
@@ -13,20 +12,17 @@
                              HorizontalOptions="Center"
                              WidthRequest="300">
 
-            <!-- Título grande -->
             <Label Text="Bienvenido de nuevo"
                    FontSize="32"
                    TextColor="#00FF99"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <!-- Subtítulo -->
             <Label Text="Empieza a entrenar y alimentarte mejor"
                    FontSize="16"
                    TextColor="White"
                    HorizontalOptions="Center" />
 
-            <!-- Campo Email -->
             <Frame CornerRadius="10"
                    Padding="10"
                    BackgroundColor="#1E1E1E">
@@ -38,7 +34,6 @@
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <!-- Campo Contraseña -->
             <Frame CornerRadius="10"
                    Padding="10"
                    BackgroundColor="#1E1E1E">
@@ -50,16 +45,21 @@
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <!-- Botón -->
             <Button Text="Iniciar sesión"
-                    Clicked="OnLoginButtonClicked"
+                    Command="{Binding LoginCommand}"
                     BackgroundColor="#00FF99"
                     TextColor="Black"
                     CornerRadius="10"
                     FontAttributes="Bold"
                     HeightRequest="50" />
 
-            <!-- Estado -->
+            <Button Text="¿No tienes cuenta? Regístrate"
+                    Command="{Binding NavigateToRegisterCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#00FF99"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
             <Label Text="{Binding StatusMessage}"
                    TextColor="Red"
                    FontSize="14"
@@ -67,4 +67,3 @@
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
-

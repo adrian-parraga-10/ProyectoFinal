@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace ProyectoFinal.Modelos
 {
     public class Usuario
     {
-        [BsonId] // Asegúrate de que MongoDB reconozca este campo como el identificador
+        [BsonId] 
         public ObjectId Id { get; set; }
 
         [BsonElement("nombre")]

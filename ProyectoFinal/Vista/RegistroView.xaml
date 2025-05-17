@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:ProyectoFinal.ViewModels"
+             x:Class="ProyectoFinal.Vista.RegistroView"
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="300">
+
+            <Label Text="Crear una cuenta"
+                   FontSize="28"
+                   TextColor="#00FF99"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Entry Placeholder="Nombre completo"
+                   Text="{Binding Nombre}"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Correo electrónico"
+                   Text="{Binding Email}"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA"
+                   Keyboard="Email" />
+
+            <Entry Placeholder="Contraseña"
+                   Text="{Binding Password}"
+                   IsPassword="True"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Confirmar Contraseña"
+                   Text="{Binding ConfirmarPassword}"
+                   IsPassword="True"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Edad"
+                   Text="{Binding EdadTexto}"
+                   Keyboard="Numeric"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Sexo"
+                   Text="{Binding Sexo}"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Peso (kg)"
+                   Text="{Binding PesoTexto}"
+                   Keyboard="Numeric"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Entry Placeholder="Altura (m)"
+                   Text="{Binding AlturaTexto}"
+                   Keyboard="Numeric"
+                   TextColor="White"
+                   PlaceholderColor="#AAAAAA" />
+
+            <Button Text="Registrarse"
+                    Command="{Binding RegistroCommand}"
+                    BackgroundColor="#00FF99"
+                    TextColor="Black"
+                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    HeightRequest="50" />
+
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="Red"
+                   FontSize="14"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

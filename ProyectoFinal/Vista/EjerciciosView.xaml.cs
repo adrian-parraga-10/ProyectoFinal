@@ -11,13 +11,13 @@ public partial class EjerciciosView : ContentPage
     }
 
     // Manejar el evento cuando se toca un ítem en la lista
-    private void OnItemTapped(object sender, ItemTappedEventArgs e)
+    private void OnItemTapped(object sender, SelectionChangedEventArgs e)
     {
-        if (e.Item != null)
+        if (e.CurrentSelection != null && e.CurrentSelection.Count > 0)
         {
-            var ejercicioSeleccionado = e.Item as Ejercicio;
             var viewModel = BindingContext as EjerciciosViewModel;
-            viewModel.EjercicioSeleccionado = ejercicioSeleccionado; // Establecer el ejercicio seleccionado
+            viewModel.EjercicioSeleccionado = e.CurrentSelection[0] as Ejercicio;
         }
     }
+
 }

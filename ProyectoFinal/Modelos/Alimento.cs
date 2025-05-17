@@ -1,10 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProyectoFinal.Modelos
 {
@@ -23,16 +19,16 @@ namespace ProyectoFinal.Modelos
         public int Calorias { get; set; }
 
         [BsonElement("proteinas")]
-        public int Proteinas { get; set; }
+        public double Proteinas { get; set; }
 
         [BsonElement("carbohidratos")]
-        public int Carbohidratos { get; set; }
+        public double Carbohidratos { get; set; }
 
         [BsonElement("grasas")]
-        public int Grasas { get; set; }
+        public double Grasas { get; set; }
 
         [BsonElement("fibra")]
-        public int Fibra { get; set; }
+        public double Fibra { get; set; }
 
         [BsonElement("origen")]
         public string Origen { get; set; }

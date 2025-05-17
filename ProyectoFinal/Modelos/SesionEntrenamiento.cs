@@ -1,7 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
 
 namespace ProyectoFinal.Modelos
 {
@@ -18,6 +16,7 @@ namespace ProyectoFinal.Modelos
 
         [BsonElement("ejercicios")]
         public List<EjercicioSesion> Ejercicios { get; set; }
+
     }
 
     public class EjercicioSesion
@@ -25,8 +24,11 @@ namespace ProyectoFinal.Modelos
         [BsonElement("ejercicio_id")]
         public ObjectId EjercicioId { get; set; }
 
+        [BsonIgnore] 
+        public string Nombre { get; set; }
+
         [BsonElement("series")]
-        public List<Serie> Series { get; set; }  // Lista de series en lugar de solo un número de serie
+        public List<Serie> Series { get; set; }  
     }
 
     public class Serie

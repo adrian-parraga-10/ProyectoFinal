@@ -1,9 +1,4 @@
 ﻿using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoFinal.Modelos
 {
@@ -14,7 +9,6 @@ namespace ProyectoFinal.Modelos
         public ObjectId AlimentoId { get; set; }
         public string Nombre { get; set; }
         public int CantidadGramos { get; set; }
-
         public int Calorias { get; set; }
         public int Proteinas { get; set; }
         public int Carbohidratos { get; set; }

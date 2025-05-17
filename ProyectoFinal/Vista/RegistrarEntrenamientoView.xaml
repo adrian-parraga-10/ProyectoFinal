@@ -73,14 +73,14 @@
                                                 <Entry Placeholder="Reps"
                                                        Keyboard="Numeric"
                                                        Text="{Binding Repeticiones, Mode=TwoWay}"
-                                                       WidthRequest="60"
+                                                       WidthRequest="80"
                                                        BackgroundColor="#2E2E2E"
                                                        TextColor="White"
                                                        PlaceholderColor="#666" />
                                                 <Entry Placeholder="Peso"
                                                        Keyboard="Numeric"
                                                        Text="{Binding Peso, Mode=TwoWay}"
-                                                       WidthRequest="60"
+                                                       WidthRequest="80"
                                                        BackgroundColor="#2E2E2E"
                                                        TextColor="White"
                                                        PlaceholderColor="#666" />

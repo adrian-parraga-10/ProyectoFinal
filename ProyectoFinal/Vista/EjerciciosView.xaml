@@ -20,6 +20,13 @@
             <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
         </StackLayout>
 
+        <SearchBar Placeholder="Buscar ejercicio..."
+                    Text="{Binding TextoBusqueda}"
+                    TextColor="White"
+                    PlaceholderColor="#888"
+                    BackgroundColor="#1E1E1E"/>
+
+
         <!-- Contenido principal -->
         <Grid Grid.Row="1" ColumnSpacing="20">
             <Grid.ColumnDefinitions>

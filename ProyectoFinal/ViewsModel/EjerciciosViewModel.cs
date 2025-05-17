@@ -1,5 +1,4 @@
-﻿using ProyectoFinal.Modelos;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,20 +6,9 @@ namespace ProyectoFinal.ViewsModel
 {
     public class EjerciciosViewModel : INotifyPropertyChanged
     {
-        private readonly BBDD _bbdd = new BBDD();
+        private readonly BBDD _bbdd = new();
 
-        public ObservableCollection<Ejercicio> Ejercicios { get; set; } = new ObservableCollection<Ejercicio>();
-
-        private string _mensaje;
-        public string Mensaje
-        {
-            get => _mensaje;
-            set
-            {
-                _mensaje = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<Ejercicio> Ejercicios { get; set; } = new();
 
         private Ejercicio _ejercicioSeleccionado;
         public Ejercicio EjercicioSeleccionado
@@ -33,24 +21,44 @@ namespace ProyectoFinal.ViewsModel
             }
         }
 
-        public EjerciciosViewModel()
+        private string _textoBusqueda;
+        public string TextoBusqueda
         {
-            CargarEjercicios();
+            get => _textoBusqueda;
+            set
+            {
+                _textoBusqueda = value;
+                OnPropertyChanged();
+                _ = BuscarDesdeServidorAsync(_textoBusqueda);
+            }
         }
 
-        private async void CargarEjercicios()
+        public EjerciciosViewModel()
         {
-            var lista = await _bbdd.ObtenerEjerciciosAsync();
+            _ = CargarEjerciciosAsync();
+        }
 
-            if (lista != null && lista.Count > 0)
+        private async Task CargarEjerciciosAsync()
+        {
+            var lista = await _bbdd.ObtenerEjerciciosLimitadoAsync(30);
+            Ejercicios = new ObservableCollection<Ejercicio>(lista);
+            OnPropertyChanged(nameof(Ejercicios));
+        }
+
+        private async Task BuscarDesdeServidorAsync(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
             {
-                foreach (var ejercicio in lista)
-                    Ejercicios.Add(ejercicio);
+                var pocos = await _bbdd.ObtenerEjerciciosLimitadoAsync(30);
+                Ejercicios = new ObservableCollection<Ejercicio>(pocos);
             }
             else
             {
-                Mensaje = "No hay ejercicios disponibles.";
+                var resultados = await _bbdd.BuscarEjerciciosAsync(texto);
+                Ejercicios = new ObservableCollection<Ejercicio>(resultados);
             }
+
+            OnPropertyChanged(nameof(Ejercicios));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

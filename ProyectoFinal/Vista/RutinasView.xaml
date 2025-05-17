@@ -106,6 +106,16 @@
                         FontAttributes="Bold"
                         HeightRequest="50"
                         Command="{Binding IrARegistrarRutinaCommand}" />
+
+                <Button Text="🗑 Eliminar Rutina"
+                        BackgroundColor="#FF4444"
+                        TextColor="White"
+                        CornerRadius="10"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        Command="{Binding EliminarRutinaCommand}"
+                        CommandParameter="{Binding RutaSeleccionada}" />
+
             </StackLayout>
         </Grid>
     </Grid>

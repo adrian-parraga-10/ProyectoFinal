@@ -1,51 +1,30 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="ProyectoFinal.Vista.EstadisticasView"
              BackgroundColor="#121212"
              Shell.NavBarIsVisible="False"
-             Title="Estadísticas"
-             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
-             >
+             Title="Estadísticas">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Título -->
-            <StackLayout Spacing="4">
-                <Label Text="📊 Estadísticas de Entrenamiento"
-                       FontSize="32"
-                       TextColor="#00FF99"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center" />
-                <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
-            </StackLayout>
+            <Label Text="📊 Estadísticas de Entrenamiento"
+                   FontSize="32"
+                   TextColor="#00FF99"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-            <!-- Fecha Inicio y Fin -->
-            <Label Text="Selecciona el rango de fechas:"
-                   FontSize="20"
-                   TextColor="White" />
+            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
 
-            <HorizontalStackLayout Spacing="20">
-                <VerticalStackLayout>
-                    <Label Text="Desde:" TextColor="White"/>
-                    <DatePicker Date="{Binding FechaInicio}" />
-                </VerticalStackLayout>
-
-                <VerticalStackLayout>
-                    <Label Text="Hasta:" TextColor="White"/>
-                    <DatePicker Date="{Binding FechaFin}" />
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
-
-            <!-- Mensaje de error o advertencia -->
+            <!-- Mensaje -->
             <Label Text="{Binding Mensaje}"
                    TextColor="Red"
                    HorizontalOptions="Center"
-                   IsVisible="{Binding MensajeVisible}" />
+                   IsVisible="{Binding Mensaje, Converter={StaticResource StringNotNullOrEmptyConverter}}" />
 
-            <!-- Estadísticas -->
-            <StackLayout Spacing="15">
+            <!-- Resumen numérico -->
+            <StackLayout Spacing="10">
                 <Label Text="Total de Sesiones" FontSize="24" TextColor="White" />
                 <Label Text="{Binding TotalSesiones}" FontSize="18" TextColor="White" />
 
@@ -55,19 +34,29 @@
                 <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" TextColor="White" />
                 <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" TextColor="White" />
 
-                <Label Text="Promedio de Peso Levantado" FontSize="24" TextColor="White" />
+                <Label Text="Promedio de Peso Levantado (kg)" FontSize="24" TextColor="White" />
                 <Label Text="{Binding PromedioPesoLevado}" FontSize="18" TextColor="White" />
-
-                <!-- Gráfico de líneas (Progreso Semanal de Peso) -->
-                <Label Text="Progreso Semanal de Peso (kg)" FontSize="24" TextColor="White" HorizontalOptions="Center"/>
-
-                <!-- Gráfico de Líneas -->
-                <microcharts:ChartView Chart="{Binding GraficoPesoSemanal}"
-                               HeightRequest="300"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="StartAndExpand" />
             </StackLayout>
+
+            <!-- Gráficos -->
+            <Label Text="Evolución semanal de peso levantado (kg)" FontSize="24" TextColor="White" HorizontalOptions="Center" />
+            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+                <microcharts:ChartView Chart="{Binding GraficoPesoSemanal}"
+                                   HeightRequest="250" />
+            </Frame>
+
+            <Label Text="Frecuencia semanal de entrenamiento" FontSize="24" TextColor="White" HorizontalOptions="Center" />
+            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+                <microcharts:ChartView Chart="{Binding GraficoFrecuenciaSemanal}"
+                                   HeightRequest="250" />
+            </Frame>
+
+            <Label Text="Ejercicios realizados (conteo)" FontSize="24" TextColor="White" HorizontalOptions="Center" />
+            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+                <microcharts:ChartView Chart="{Binding GraficoEjercicios}"
+                                   HeightRequest="250" />
+            </Frame>
 
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</ContentPage> 

@@ -1,9 +1,11 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using ProyectoFinal.Modelos;
+using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using Microsoft.Win32;
 using ProyectoFinal.Singleton;
+using ProyectoFinal.Vista;
 
 namespace ProyectoFinal.ViewModels
 {
@@ -16,45 +18,36 @@ namespace ProyectoFinal.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Constructor donde inicializas la conexión con la base de datos
+        public ICommand LoginCommand { get; }
+        public ICommand NavigateToRegisterCommand { get; }
+
         public LoginViewModel()
         {
-            _bbdd = new BBDD(); // Inicializamos la instancia de BBDD
+            _bbdd = new BBDD();
+
+            LoginCommand = new Command(async () => await OnLoginAsync());
+            NavigateToRegisterCommand = new Command(async () => await NavegarRegistroAsync());
         }
 
-        // Propiedades de Email, Password y StatusMessage
         public string Email
         {
             get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged();
-            }
+            set { _email = value; OnPropertyChanged(); }
         }
 
         public string Password
         {
             get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged();
-            }
+            set { _password = value; OnPropertyChanged(); }
         }
 
         public string StatusMessage
         {
             get => _statusMessage;
-            set
-            {
-                _statusMessage = value;
-                OnPropertyChanged();
-            }
+            set { _statusMessage = value; OnPropertyChanged(); }
         }
 
-        // Método para manejar el login
-        public async Task OnLoginAsync()
+        private async Task OnLoginAsync()
         {
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
@@ -68,34 +61,25 @@ namespace ProyectoFinal.ViewModels
             {
                 GlobalData.Instance.UsuarioActual = usuario;
                 GlobalData.Instance.UsuarioId = usuario.Id;
-            }
-
-            if (usuario != null)
-            {
                 StatusMessage = "✅ Inicio de sesión correcto";
 
-                // Realizamos la navegación según el rol
                 if (usuario.Rol == "admin")
-                {
-                    // Cambiar de shell a AdminShell
-                    Application.Current.MainPage = new AdminShell(); // Cambiar el Shell a AdminShell
-                }
+                    Application.Current.MainPage = new AdminShell();
                 else
-                {
-                    // Cambiar el MainPage a UserShell
                     Application.Current.MainPage = new UserShell();
-                }
             }
             else
             {
-                StatusMessage = "❌ Usuario o contraseña incorrectos";
+                StatusMessage = "❌ Usuario o contraseña incorrectos.";
             }
         }
 
-        // Método que notifica cuando se ha actualizado una propiedad
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private async Task NavegarRegistroAsync()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Application.Current.MainPage.Navigation.PushAsync(new RegistroView());
         }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

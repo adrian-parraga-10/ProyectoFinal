@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class Ejercicio
 {
@@ -20,5 +20,6 @@ public class Ejercicio
     public string Nivel { get; set; }
 
     [BsonElement("musculos_trabajados")]
-    public List<string> MusculosTrabajados { get; set; }
+    public ObservableCollection<string> MusculosTrabajados { get; set; } = new ObservableCollection<string>();
+
 }

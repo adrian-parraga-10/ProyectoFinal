@@ -1,10 +1,7 @@
 ﻿using ProyectoFinal.Modelos;
 using ProyectoFinal.Singleton;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using MongoDB.Bson;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -22,7 +19,7 @@ namespace ProyectoFinal.ViewModels
         public RegistrarEntrenamientoViewModel(Rutina rutina)
         {
             GuardarSesionCommand = new Command(async () => await GuardarSesion());
-            CargarEjerciciosRutina(rutina);  // Cargar ejercicios de la rutina seleccionada
+            CargarEjerciciosRutina(rutina); 
             ActualizarSeriesCommand = new Command<EjercicioSesionEditable>(ActualizarSeries);
 
         }
@@ -39,9 +36,8 @@ namespace ProyectoFinal.ViewModels
                         Nombre = ejercicio.Nombre,
                         Categoria = ejercicio.Categoria
                     };
-
-                    // Establece el número de series predeterminadas (por ejemplo 3)
-                    ejercicioEditable.EstablecerSeriesPredeterminadas(3);  // 3 series como ejemplo
+                  
+                    ejercicioEditable.EstablecerSeriesPredeterminadas(3);  
 
                     EjerciciosRutina.Add(ejercicioEditable);
                 }
@@ -56,8 +52,7 @@ namespace ProyectoFinal.ViewModels
                 UsuarioId = GlobalData.Instance.UsuarioActual.Id,
                 Ejercicios = new List<EjercicioSesion>()
             };
-
-            // Iterar sobre cada ejercicio en EjerciciosRutina
+            
             foreach (var ejercicio in EjerciciosRutina)
             {
                 var ejercicioSesion = new EjercicioSesion

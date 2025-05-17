@@ -17,12 +17,12 @@ namespace ProyectoFinal.ViewsModel
         public string DescripcionRutina { get; set; }
 
         public ICommand GuardarRutinaCommand { get; }
-        public ICommand ActualizarSeleccionCommand { get; }  // Comando para manejar la selección
+        public ICommand ActualizarSeleccionCommand { get; }  
 
         public CrearRutinaViewModel()
         {
             GuardarRutinaCommand = new Command(async () => await GuardarRutina());
-            ActualizarSeleccionCommand = new Command<Ejercicio>(ActualizarSeleccion);  // Comando para actualizar selección
+            ActualizarSeleccionCommand = new Command<Ejercicio>(ActualizarSeleccion);  
             _ = CargarEjercicios();
         }
 
@@ -82,11 +82,11 @@ namespace ProyectoFinal.ViewsModel
         {
             if (EjerciciosSeleccionados.Contains(ejercicio))
             {
-                EjerciciosSeleccionados.Remove(ejercicio); // Si ya está en la lista, lo quitamos
+                EjerciciosSeleccionados.Remove(ejercicio); 
             }
             else
             {
-                EjerciciosSeleccionados.Add(ejercicio); // Si no está, lo agregamos
+                EjerciciosSeleccionados.Add(ejercicio); 
             }
         }
 

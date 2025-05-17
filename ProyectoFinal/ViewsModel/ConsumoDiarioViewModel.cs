@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using ProyectoFinal.Modelos;
 using ProyectoFinal.Singleton;
@@ -74,7 +69,7 @@ namespace ProyectoFinal.ViewsModel
                     AlimentosConsumidos.Add(item);
             }
 
-            // Recalcular los totales después de cargar los alimentos consumidos
+            
             RecalcularTotales();
         }
 
@@ -95,10 +90,10 @@ namespace ProyectoFinal.ViewsModel
                 Carbohidratos = (int)(AlimentoSeleccionado.Carbohidratos * factor),
                 Grasas = (int)(AlimentoSeleccionado.Grasas * factor),
                 Fibra = (int)(AlimentoSeleccionado.Fibra * factor),
-                ConsumoId = ObjectId.GenerateNewId() // Genera un nuevo ObjectId
+                ConsumoId = ObjectId.GenerateNewId() 
             };
 
-            // Agregar el alimento a la base de datos y a la lista observable
+            
             await _bbdd.AgregarAlimentoADiaAsync(GlobalData.Instance.UsuarioId, _fechaActual, consumo);
             AlimentosConsumidos.Add(consumo);
             CantidadGramos = 0;
@@ -118,11 +113,9 @@ namespace ProyectoFinal.ViewsModel
         private async Task EliminarAlimento(ConsumoAlimento alimento)
         {
             if (alimento == null) return;
-
-            // Llamamos al método en BBDD para eliminar el alimento de la base de datos
+           
             await _bbdd.EliminarAlimentoDeDiaAsync(GlobalData.Instance.UsuarioId, _fechaActual, alimento);
-
-            // Eliminamos el alimento de la lista ObservableCollection para que se refleje en la vista
+         
             AlimentosConsumidos.Remove(alimento);
 
             RecalcularTotales();

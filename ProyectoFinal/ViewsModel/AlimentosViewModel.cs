@@ -9,7 +9,7 @@ namespace ProyectoFinal.ViewsModel
     {
         private readonly BBDD _bbdd = new BBDD();
 
-        public ObservableCollection<Alimento> Alimentos { get; set; } = new ObservableCollection<Alimento>();
+        public ObservableCollection<Alimento> Alimentos { get; set; } = new();
 
         private string _mensaje;
         public string Mensaje
@@ -33,24 +33,44 @@ namespace ProyectoFinal.ViewsModel
             }
         }
 
-        public AlimentosViewModel()
+        private string _textoBusqueda;
+        public string TextoBusqueda
         {
-            CargarAlimentos();
+            get => _textoBusqueda;
+            set
+            {
+                _textoBusqueda = value;
+                OnPropertyChanged();
+                _ = BuscarDesdeServidorAsync(_textoBusqueda);
+            }
         }
 
-        private async void CargarAlimentos()
+        public AlimentosViewModel()
         {
-            var lista = await _bbdd.ObtenerAlimentosAsync();
+            CargarAlimentosAsync(); 
+        }
 
-            if (lista != null && lista.Count > 0)
+        private async Task CargarAlimentosAsync()
+        {
+            var lista = await _bbdd.ObtenerAlimentosLimitadoAsync(10); 
+            Alimentos = new ObservableCollection<Alimento>(lista);
+            OnPropertyChanged(nameof(Alimentos));
+        }
+
+        private async Task BuscarDesdeServidorAsync(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
             {
-                foreach (var alimento in lista)
-                    Alimentos.Add(alimento);
+                var pocos = await _bbdd.ObtenerAlimentosLimitadoAsync(30);
+                Alimentos = new ObservableCollection<Alimento>(pocos);
             }
             else
             {
-                Mensaje = "No hay alimentos disponibles.";
+                var resultados = await _bbdd.BuscarAlimentosAsync(texto);
+                Alimentos = new ObservableCollection<Alimento>(resultados);
             }
+
+            OnPropertyChanged(nameof(Alimentos));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

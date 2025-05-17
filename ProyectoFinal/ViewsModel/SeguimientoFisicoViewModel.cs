@@ -47,7 +47,7 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
     private async Task InicializarAsync()
     {
         await CargarHistorial();
-        GenerarGrafico(); // Generamos gráfico al inicio
+        GenerarGrafico(); 
     }
 
     private async Task GuardarProgreso()
@@ -65,7 +65,7 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
         HistorialProgreso.Add(nuevo);
         OnPropertyChanged(nameof(HistorialProgreso));
 
-        GenerarGrafico(); // Regenerar gráfico
+        GenerarGrafico(); 
     }
 
     private async Task CargarHistorial()
@@ -75,8 +75,8 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
         HistorialProgreso.Clear();
         // Filtrar solo los últimos 7 registros
         var ultimos7Registros = lista.OrderByDescending(x => x.Fecha)
-                                      .Take(7)  // Solo tomar los últimos 7 registros
-                                      .OrderBy(x => x.Fecha)  // Ordenarlos nuevamente para que estén en orden cronológico
+                                      .Take(7)  
+                                      .OrderBy(x => x.Fecha)  
                                       .ToList();
 
         foreach (var item in ultimos7Registros)
@@ -85,9 +85,26 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
         }
     }
 
-    private void GenerarGrafico()
+    private async void GenerarGrafico()
     {
-        var entries = HistorialProgreso
+        if (HistorialProgreso == null || HistorialProgreso.Count == 0)
+        {
+            GraficoPeso = null;
+            return;
+        }
+
+        // Forzar limpieza del gráfico anterior
+        GraficoPeso = null;
+        await Task.Delay(50); // Permitir que el ChartView se "resetee"
+
+        // Asegurar que las fechas sean únicas (por si el mismo día se guarda varias veces)
+        var progresoFiltrado = HistorialProgreso
+            .OrderBy(p => p.Fecha)
+            .GroupBy(p => p.Fecha.Date)
+            .Select(g => g.Last()) // Último peso registrado por día
+            .ToList();
+
+        var entries = progresoFiltrado
             .Select(p => new ChartEntry((float)p.Peso)
             {
                 Label = p.Fecha.ToString("dd/MM"),
@@ -97,14 +114,20 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
             })
             .ToList();
 
+        // Rango dinámico para mostrar mejor las variaciones pequeñas
+        float minPeso = (float)progresoFiltrado.Min(p => p.Peso) - 1f;
+        float maxPeso = (float)progresoFiltrado.Max(p => p.Peso) + 1f;
+
         GraficoPeso = new LineChart
         {
             Entries = entries,
-            LineMode = LineMode.Straight,  // Usar líneas rectas entre los puntos
-            LineSize = 4,  // Grosor de la línea
-            PointMode = PointMode.Circle,  // Estilo de los puntos (círculos)
-            PointSize = 6,  // Tamaño de los puntos
-            BackgroundColor = SKColors.Transparent  // Fondo transparente
+            LineMode = LineMode.Straight,
+            LineSize = 4,
+            PointMode = PointMode.Circle,
+            PointSize = 6,
+            MinValue = minPeso,
+            MaxValue = maxPeso,
+            BackgroundColor = SKColors.Transparent
         };
     }
 

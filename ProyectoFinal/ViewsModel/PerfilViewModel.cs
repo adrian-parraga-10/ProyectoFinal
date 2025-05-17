@@ -1,11 +1,6 @@
 ﻿using ProyectoFinal.Modelos;
 using ProyectoFinal.Singleton;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoFinal.ViewsModel
 {
@@ -35,12 +30,12 @@ namespace ProyectoFinal.ViewsModel
         private async Task CargarUsuario()
         {
             var usuarioId = GlobalData.Instance.UsuarioId;
-            Usuario = await _bbdd.ObtenerUsuarioPorIdAsync(usuarioId); // Debes implementar este método si aún no lo tienes
+            Usuario = await _bbdd.ObtenerUsuarioPorIdAsync(usuarioId); 
         }
 
         private async Task GuardarCambios()
         {
-            await _bbdd.ActualizarUsuarioAsync(Usuario); // Debes implementar este método si aún no lo tienes
+            await _bbdd.ActualizarUsuarioAsync(Usuario); 
             await App.Current.MainPage.DisplayAlert("Perfil", "Datos actualizados correctamente", "OK");
         }
 
