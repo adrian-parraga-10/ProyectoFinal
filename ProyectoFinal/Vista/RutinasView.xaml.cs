@@ -12,11 +12,13 @@ namespace ProyectoFinal.Vista
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is HistorialSesionesViewModel vm)
+
+            if (BindingContext is RutinasViewModel vm)
             {
-                await vm.CargarSesionesAsync();
+                await vm.CargarRutinasAsync();
             }
         }
+
 
     }
 }

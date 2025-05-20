@@ -13,5 +13,17 @@ namespace ProyectoFinal.Vista
             BindingContext = new LoginViewModel();
         }
 
+        private void OnEmailCompleted(object sender, EventArgs e)
+        {
+            PasswordEntry.Focus(); // Salta al siguiente campo al presionar Enter
+        }
+
+        private void OnPasswordCompleted(object sender, EventArgs e)
+        {
+            if (BindingContext is LoginViewModel vm && vm.LoginCommand.CanExecute(null))
+                vm.LoginCommand.Execute(null); // Presiona Enter para iniciar sesión
+        }
+
+
     }
 }

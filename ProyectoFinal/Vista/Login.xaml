@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.Login"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="Iniciar sesión">
 
     <ScrollView>
@@ -14,56 +14,75 @@
 
             <Label Text="Bienvenido de nuevo"
                    FontSize="32"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Center"
+                   SemanticProperties.HeadingLevel="Level1"
+                   AutomationProperties.Name="Título Bienvenido de nuevo" />
 
             <Label Text="Empieza a entrenar y alimentarte mejor"
                    FontSize="16"
-                   TextColor="White"
-                   HorizontalOptions="Center" />
+                   TextColor="{DynamicResource TextColor}"
+                   HorizontalOptions="Center"
+                   AutomationProperties.Name="Subtítulo motivacional" />
 
+            <!-- Email Entry -->
             <Frame CornerRadius="10"
                    Padding="10"
-                   BackgroundColor="#1E1E1E">
-                <Entry Text="{Binding Email}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}">
+                <Entry x:Name="EmailEntry"
+                       Text="{Binding Email}"
                        Placeholder="Correo electrónico"
                        Keyboard="Email"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
-                       BackgroundColor="Transparent" />
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       BackgroundColor="Transparent"
+                       Completed="OnEmailCompleted" 
+                       AutomationProperties.Name="Correo electrónico"
+                       AutomationProperties.HelpText="Introduce tu correo electrónico"/>
             </Frame>
 
+            <!-- Password Entry -->
             <Frame CornerRadius="10"
                    Padding="10"
-                   BackgroundColor="#1E1E1E">
-                <Entry Text="{Binding Password}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}">
+                <Entry x:Name="PasswordEntry"
+                       Text="{Binding Password}"
                        Placeholder="Contraseña"
                        IsPassword="True"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
-                       BackgroundColor="Transparent" />
+                       ReturnType="Go"
+                       Completed="OnPasswordCompleted"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       BackgroundColor="Transparent"
+                       AutomationProperties.Name="Campo de contraseña"
+                       AutomationProperties.HelpText="Introduce tu contraseña para iniciar sesión" />
             </Frame>
 
             <Button Text="Iniciar sesión"
                     Command="{Binding LoginCommand}"
-                    BackgroundColor="#00FF99"
-                    TextColor="Black"
+                    BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
                     CornerRadius="10"
                     FontAttributes="Bold"
-                    HeightRequest="50" />
+                    HeightRequest="50"
+                    AutomationProperties.Name="Botón iniciar sesión"
+                    SemanticProperties.Hint="Pulsa para acceder a tu cuenta" />
 
             <Button Text="¿No tienes cuenta? Regístrate"
                     Command="{Binding NavigateToRegisterCommand}"
                     BackgroundColor="Transparent"
-                    TextColor="#00FF99"
+                    TextColor="{DynamicResource PrimaryAccentColor}"
                     FontAttributes="Bold"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"
+                    AutomationProperties.Name="Botón para ir a registro" />
 
             <Label Text="{Binding StatusMessage}"
-                   TextColor="Red"
+                   TextColor="{DynamicResource ErrorTextColor}"
                    FontSize="14"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Center"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   AutomationProperties.Name="Mensaje de estado de inicio de sesión" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

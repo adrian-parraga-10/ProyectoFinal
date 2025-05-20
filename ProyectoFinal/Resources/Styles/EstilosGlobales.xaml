@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Resources.Styles.EstilosGlobales">
+
+    <!-- Estilo para etiquetas (Label) -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        <Setter Property="FontFamily" Value="Arial" />
+    </Style>
+
+    <!-- Estilo para entradas (Entry) -->
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource PlaceholderColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource EntryBackgroundColor}" />
+        <Setter Property="Margin" Value="5,2" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!-- Estilo para botones (Button) -->
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryAccentColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource ButtonTextColor}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HeightRequest" Value="50" />
+    </Style>
+
+    <!-- Estilo para Frame -->
+    <Style TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{DynamicResource CardColor}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+
+
+</ResourceDictionary>

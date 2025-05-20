@@ -27,6 +27,7 @@ namespace ProyectoFinal.ViewModels
 
             LoginCommand = new Command(async () => await OnLoginAsync());
             NavigateToRegisterCommand = new Command(async () => await NavegarRegistroAsync());
+           
         }
 
         public string Email

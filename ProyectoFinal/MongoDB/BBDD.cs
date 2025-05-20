@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using ProyectoFinal.Singleton;
 
 using ProyectoFinal.Modelos;
+using ProyectoFinal.Hash;
 
 public class BBDD
 {
@@ -24,6 +25,17 @@ public class BBDD
         }
     }
 
+    // Método para obtener los usuarios desde la base de datos
+    public async Task<Usuario> ObtenerUsuarioAsync(string email, string contraseñaIngresada)
+    {
+        var collection = _database.GetCollection<Usuario>("usuarios");
+        var usuario = await collection.Find(u => u.Email == email).FirstOrDefaultAsync();
+
+        if (usuario != null && PasswordHelper.VerificarContraseña(contraseñaIngresada, usuario.Contraseña))
+            return usuario;
+
+        return null;
+    }
     // Método para obtener los alimentos desde la base de datos
     public async Task<List<Alimento>> ObtenerAlimentosAsync()
     {
@@ -56,14 +68,8 @@ public class BBDD
 
 
 
-    // Método para obtener los usuarios desde la base de datos
-    public async Task<Usuario> ObtenerUsuarioAsync(string email, string password)
-    {
-        var collection = _database.GetCollection<Usuario>("usuarios");
-        var filtro = Builders<Usuario>.Filter.Eq("email", email) & Builders<Usuario>.Filter.Eq("contraseña", password);
-        var usuario = await collection.Find(filtro).FirstOrDefaultAsync();
-        return usuario;
-    }
+    
+
 
     // Método para obtener los ejercicios desde la base de datos
     public async Task<List<Ejercicio>> ObtenerEjerciciosAsync()
@@ -379,12 +385,11 @@ public class BBDD
         {
             var collection = _database.GetCollection<Usuario>("usuarios");
             await collection.InsertOneAsync(usuario);
-            return true; // Inserción exitosa
+            return true; 
         }
         catch (Exception ex)
         {
-            // Aquí podrías loguear el error si quieres
-            return false; // Hubo un error
+            return false; 
         }
     }
 

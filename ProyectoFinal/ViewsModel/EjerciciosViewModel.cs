@@ -29,13 +29,13 @@ namespace ProyectoFinal.ViewsModel
             {
                 _textoBusqueda = value;
                 OnPropertyChanged();
-                _ = BuscarDesdeServidorAsync(_textoBusqueda);
+                BuscarDesdeServidorAsync(_textoBusqueda);
             }
         }
 
         public EjerciciosViewModel()
         {
-            _ = CargarEjerciciosAsync();
+            CargarEjerciciosAsync();
         }
 
         private async Task CargarEjerciciosAsync()

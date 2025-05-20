@@ -37,9 +37,9 @@
 
             <!-- Lista de alimentos -->
             <CollectionView ItemsSource="{Binding Alimentos}"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding AlimentoSeleccionado}"
-                            SelectionChanged="OnItemTapped">
+                    SelectionMode="Single"
+                    SelectedItem="{Binding AlimentoSeleccionado}"
+                    SelectionChanged="OnItemTapped">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BackgroundColor="#1E1E1E"
@@ -48,22 +48,30 @@
                                Margin="5"
                                Padding="12"
                                HasShadow="False">
-                            <StackLayout>
-                                <Label Text="{Binding Nombre}"
-                                       FontSize="18"
-                                       TextColor="White"
-                                       FontAttributes="Bold" />
-                                <Label Text="{Binding Categoria}"
-                                       FontSize="14"
-                                       TextColor="#AAAAAA" />
-                                <Label Text="{Binding Calorias, StringFormat='{0} cal'}"
-                                       FontSize="14"
-                                       TextColor="#AAAAAA" />
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Image Source="{Binding Imagen}"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+                                <StackLayout>
+                                    <Label Text="{Binding Nombre}"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Categoria}"
+                                           FontSize="14"
+                                           TextColor="#AAAAAA" />
+                                    <Label Text="{Binding Calorias, StringFormat='{0} cal'}"
+                                           FontSize="14"
+                                           TextColor="#AAAAAA" />
+                                </StackLayout>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
 
             <!-- Detalles del alimento -->
             <StackLayout Grid.Column="1"
@@ -79,41 +87,61 @@
                        CornerRadius="12"
                        Padding="20"
                        HasShadow="False">
-                    <StackLayout Spacing="10">
-                        <Label Text="{Binding AlimentoSeleccionado.Nombre}"
-                               FontSize="20"
-                               TextColor="White"
-                               FontAttributes="Bold" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Categoria, StringFormat='Categoría: {0}'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
 
-                        <Label Text="{Binding AlimentoSeleccionado.Calorias, StringFormat='Calorías: {0}'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                        <!-- Texto de detalles -->
+                        <StackLayout Grid.Column="0" Spacing="10">
+                            <Label Text="{Binding AlimentoSeleccionado.Nombre}"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Proteinas, StringFormat='Proteínas: {0}g'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                            <Label Text="{Binding AlimentoSeleccionado.Categoria, StringFormat='Categoría: {0}'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Carbohidratos, StringFormat='Carbohidratos: {0}g'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                            <Label Text="{Binding AlimentoSeleccionado.Calorias, StringFormat='Calorías: {0}'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Grasas, StringFormat='Grasas: {0}g'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                            <Label Text="{Binding AlimentoSeleccionado.Proteinas, StringFormat='Proteínas: {0}g'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Fibra, StringFormat='Fibra: {0}g'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
+                            <Label Text="{Binding AlimentoSeleccionado.Carbohidratos, StringFormat='Carbohidratos: {0}g'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
 
-                        <Label Text="{Binding AlimentoSeleccionado.Origen, StringFormat='Origen: {0}'}"
-                               FontSize="14"
-                               TextColor="#AAAAAA" />
-                    </StackLayout>
+                            <Label Text="{Binding AlimentoSeleccionado.Grasas, StringFormat='Grasas: {0}g'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
+
+                            <Label Text="{Binding AlimentoSeleccionado.Fibra, StringFormat='Fibra: {0}g'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
+
+                            <Label Text="{Binding AlimentoSeleccionado.Origen, StringFormat='Origen: {0}'}"
+                                   FontSize="14"
+                                   TextColor="#AAAAAA" />
+                        </StackLayout>
+
+                        <!-- Imagen a la derecha -->
+                        <Image Grid.Column="1"
+                               Source="{Binding AlimentoSeleccionado.Imagen}"
+                               Aspect="AspectFill"
+                               HeightRequest="160"
+                               WidthRequest="160"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               Margin="10"/>
+                    </Grid>
                 </Frame>
+
 
             </StackLayout>
         </Grid>

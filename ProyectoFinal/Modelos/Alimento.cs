@@ -32,5 +32,8 @@ namespace ProyectoFinal.Modelos
 
         [BsonElement("origen")]
         public string Origen { get; set; }
+
+        [BsonElement("imagen")]
+        public string Imagen { get; set; }
     }
 }

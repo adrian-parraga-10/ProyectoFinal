@@ -23,7 +23,7 @@ namespace ProyectoFinal.ViewsModel
         {
             GuardarRutinaCommand = new Command(async () => await GuardarRutina());
             ActualizarSeleccionCommand = new Command<Ejercicio>(ActualizarSeleccion);  
-            _ = CargarEjercicios();
+            CargarEjercicios();
         }
 
         private async Task CargarEjercicios()
@@ -38,18 +38,17 @@ namespace ProyectoFinal.ViewsModel
             // Verifica que EjerciciosSeleccionados no esté vacío
             if (EjerciciosSeleccionados.Count == 0)
             {
-                // Muestra un mensaje de error si no se han seleccionado ejercicios
                 await Application.Current.MainPage.DisplayAlert("Error", "Debes seleccionar al menos un ejercicio.", "OK");
-                return; // No procede con la guardada si no hay ejercicios seleccionados
+                return; 
             }
 
             // Crear la lista de EjercicioRutina a partir de los ejercicios seleccionados
             var ejerciciosRutina = EjerciciosSeleccionados.Select(e => new EjercicioRutina
             {
-                EjercicioId = e.Id, // Usamos el Id del ejercicio para asociarlo a la rutina
+                EjercicioId = e.Id, 
                 Nombre = e.Nombre,
                 Categoria = e.Categoria,
-                SerieHistorial = new List<SerieHistorial>() // El historial de series estará vacío al principio
+                SerieHistorial = new List<SerieHistorial>() 
             }).ToList();
 
             // Crear la nueva rutina con la lista de ejercicios
@@ -59,13 +58,13 @@ namespace ProyectoFinal.ViewsModel
                 Descripcion = DescripcionRutina,
                 UsuarioId = GlobalData.Instance.UsuarioActual.Id,
                 Publica = false,
-                Ejercicios = ejerciciosRutina // Usamos los EjercicioRutina aquí
+                Ejercicios = ejerciciosRutina 
             };
 
-            // Guardar la rutina en la base de datos
+            
             await _bbdd.GuardarRutinaAsync(nuevaRutina);
 
-            // Mostrar mensaje de éxito
+            
             await Application.Current.MainPage.DisplayAlert("Éxito", "Rutina guardada correctamente.", "OK");
 
             // Limpiar campos

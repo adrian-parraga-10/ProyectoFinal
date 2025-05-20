@@ -7,7 +7,7 @@ namespace ProyectoFinal.ViewModels
 {
     public class AdminUsuariosViewModel : INotifyPropertyChanged
     {
-        private readonly BBDD _bbdd = new(); // Clase que interactúa con la base de datos
+        private readonly BBDD _bbdd = new();
         public ObservableCollection<Usuario> Usuarios { get; set; } = new();
         public ObservableCollection<Usuario> UsuariosFiltrados { get; set; } = new();
         private string _busqueda;
@@ -83,19 +83,19 @@ namespace ProyectoFinal.ViewModels
 
         private async void NuevoUsuario()
         {
-            // Crear un nuevo usuario con los datos del formulario
+            
             var nuevoUsuario = new Usuario
             {
                 Nombre = NuevoUsuarioNombre,
                 Email = NuevoUsuarioEmail,
                 Edad = NuevoUsuarioEdad,
                 Sexo = NuevoUsuarioSexo,
-                Rol = "Usuario",  // Siempre será "Usuario"
+                Rol = "Usuario",  
                 Peso = NuevoUsuarioPeso,
                 Altura = NuevoUsuarioAltura,
                 FechaCreacion = DateTime.Now,
-                Objetivos = new List<string>(),  // Vacío por ahora
-                FotoPerfil = "default.jpg",     // Imagen predeterminada
+                Objetivos = new List<string>(), 
+                FotoPerfil = "default.jpg",     
                 RutinasGuardadas = new List<string>(),
                 DietaGuardada = ""
             };

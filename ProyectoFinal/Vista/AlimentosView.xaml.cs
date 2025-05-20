@@ -18,7 +18,7 @@ public partial class AlimentosView : ContentPage
         {
             var alimentoSeleccionado = e.Item as Alimento;
             var viewModel = BindingContext as AlimentosViewModel;
-            viewModel.AlimentoSeleccionado = alimentoSeleccionado; // Establecer el alimento seleccionado
+            viewModel.AlimentoSeleccionado = alimentoSeleccionado; 
         }
     }
 }

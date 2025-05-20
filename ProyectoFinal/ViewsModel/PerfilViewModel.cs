@@ -23,7 +23,7 @@ namespace ProyectoFinal.ViewsModel
 
         public PerfilViewModel()
         {
-            _ = CargarUsuario();
+            CargarUsuario();
             GuardarCambiosCommand = new Command(async () => await GuardarCambios());
         }
 

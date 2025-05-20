@@ -93,11 +93,11 @@ public class SeguimientoFisicoViewModel : INotifyPropertyChanged
             return;
         }
 
-        // Forzar limpieza del gráfico anterior
+        
         GraficoPeso = null;
-        await Task.Delay(50); // Permitir que el ChartView se "resetee"
+        await Task.Delay(50); 
 
-        // Asegurar que las fechas sean únicas (por si el mismo día se guarda varias veces)
+        
         var progresoFiltrado = HistorialProgreso
             .OrderBy(p => p.Fecha)
             .GroupBy(p => p.Fecha.Date)

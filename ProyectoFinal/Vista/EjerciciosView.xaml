@@ -47,18 +47,26 @@
                                Margin="5"
                                Padding="12"
                                HasShadow="False">
-                            <StackLayout>
-                                <Label Text="{Binding Nombre}"
-                                       FontSize="18"
-                                       TextColor="White"
-                                       FontAttributes="Bold" />
-                                <Label Text="{Binding Categoria}"
-                                       FontSize="14"
-                                       TextColor="#AAAAAA" />
-                                <Label Text="{Binding Nivel, StringFormat='Nivel: {0}'}"
-                                       FontSize="14"
-                                       TextColor="#AAAAAA" />
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Image Source="{Binding Imagen}"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center"/>
+                                <StackLayout>
+                                    <Label Text="{Binding Nombre}"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Categoria}"
+                                           FontSize="14"
+                                           TextColor="#AAAAAA" />
+                                    <Label Text="{Binding Nivel, StringFormat='Nivel: {0}'}"
+                                           FontSize="14"
+                                           TextColor="#AAAAAA" />
+                                </StackLayout>
                             </StackLayout>
+
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -68,11 +76,26 @@
             <StackLayout Grid.Column="1"
                          Padding="10"
                          Spacing="15">
+
                 <Label Text="Detalles del ejercicio"
                        FontSize="26"
                        TextColor="#00FF99"
                        FontAttributes="Bold"
                        HorizontalOptions="Center" />
+
+                <!-- Imagen grande del ejercicio -->
+                <Frame BackgroundColor="#2E2E2E"
+                       CornerRadius="12"
+                       Padding="0"
+                       HeightRequest="200"
+                       HorizontalOptions="Center">
+                    <Image Source="{Binding EjercicioSeleccionado.Imagen}"
+                           Aspect="AspectFill"
+                           WidthRequest="200"
+                           HeightRequest="200"
+                           Margin="10"
+                           VerticalOptions="Center" />
+                </Frame>
 
                 <Frame BackgroundColor="#1E1E1E"
                        CornerRadius="12"

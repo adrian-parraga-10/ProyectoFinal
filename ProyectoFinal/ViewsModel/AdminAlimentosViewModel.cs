@@ -31,7 +31,7 @@ namespace ProyectoFinal.ViewsModel
             {
                 _busqueda = value;
                 OnPropertyChanged();
-                _ = BuscarEnBBDD(); // Llamada a base de datos con debounce opcional
+                BuscarEnBBDD(); 
             }
         }
 
@@ -50,9 +50,9 @@ namespace ProyectoFinal.ViewsModel
 
         private async Task BuscarEnBBDD()
         {
-            var lista = await _bbdd.BuscarAlimentosAsync(Busqueda); // Método nuevo en BBDD
+            var lista = await _bbdd.BuscarAlimentosAsync(Busqueda); 
             AlimentosFiltrados.Clear();
-            foreach (var alimento in lista.Take(50)) // Limitar resultados
+            foreach (var alimento in lista.Take(50)) 
                 AlimentosFiltrados.Add(alimento);
         }
 

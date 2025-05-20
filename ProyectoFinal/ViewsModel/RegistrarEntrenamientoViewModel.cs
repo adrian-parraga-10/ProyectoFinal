@@ -15,7 +15,7 @@ namespace ProyectoFinal.ViewModels
         public ICommand GuardarSesionCommand { get; }
         public ICommand ActualizarSeriesCommand { get; }
 
-        // Modificar el constructor para recibir la rutina seleccionada
+       
         public RegistrarEntrenamientoViewModel(Rutina rutina)
         {
             GuardarSesionCommand = new Command(async () => await GuardarSesion());

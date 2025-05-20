@@ -22,4 +22,7 @@ public class Ejercicio
     [BsonElement("musculos_trabajados")]
     public ObservableCollection<string> MusculosTrabajados { get; set; } = new ObservableCollection<string>();
 
+    [BsonElement("imagen")]
+    public string Imagen { get; set; }
+
 }

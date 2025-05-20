@@ -10,7 +10,6 @@ public class HistorialConsumoViewModel : INotifyPropertyChanged
 {
     private readonly BBDD _bbdd = new();
 
-    // Observable collection para mostrar los alimentos consumidos
     public ObservableCollection<ConsumoAlimento> AlimentosDeEseDia { get; set; } = new();
 
     // Propiedad para la fecha seleccionada desde el calendario
@@ -43,9 +42,8 @@ public class HistorialConsumoViewModel : INotifyPropertyChanged
 
     public HistorialConsumoViewModel()
     {
-        // Inicializamos la fecha seleccionada como la fecha actual
         FechaSeleccionada = DateTime.Today;
-        _ = CargarAlimentosPorFecha(); // Cargar alimentos para la fecha inicial
+        CargarAlimentosPorFecha(); 
     }
 
     private async Task CargarAlimentosPorFecha()

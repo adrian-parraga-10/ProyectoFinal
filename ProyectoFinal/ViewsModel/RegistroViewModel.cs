@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using ProyectoFinal.Hash;
 using ProyectoFinal.Modelos;
 
 namespace ProyectoFinal.ViewModels
@@ -99,11 +100,11 @@ namespace ProyectoFinal.ViewModels
                 return;
             }
 
-            // Crear usuario nuevo
+           
             var nuevoUsuario = new Usuario
             {
                 Email = Email,
-                Contraseña = Password,  // En producción encriptar la contraseña
+                Contraseña = PasswordHelper.HashearContraseña(Password),
                 Rol = "usuario",
                 Nombre = Nombre,
                 Edad = edad,

@@ -3,65 +3,64 @@
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="ProyectoFinal.Vista.SeguimientoFisicoView"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="Seguimiento Físico">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
+            <!-- Etiqueta del peso -->
             <Label Text="Tu peso actual (kg):"
-                   FontSize="16"
-                   TextColor="White" />
+                   Style="{StaticResource LabelStyle}"
+                   FontSize="16" />
 
-            <Entry Keyboard="Numeric"
+            <!-- Campo de entrada de peso -->
+            <Entry Style="{StaticResource EntryStyle}"
+                   Keyboard="Numeric"
                    Text="{Binding Peso, Mode=TwoWay}" 
                    Placeholder="Ej: 70.5" 
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA"
-                   BackgroundColor="#1E1E1E"
-                   HeightRequest="40"
                    Margin="0,0,0,10" />
 
+            <!-- Botón para guardar progreso -->
             <Button Text="Guardar Progreso"
-                    Command="{Binding GuardarProgresoCommand}" 
-                    BackgroundColor="#00FF99"
-                    TextColor="#121212"
-                    FontAttributes="Bold"
-                    CornerRadius="10"
-                    HeightRequest="45" />
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding GuardarProgresoCommand}" />
 
+            <!-- Título historial -->
             <Label Text="Historial de Peso"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="#00FF99" />
+                   TextColor="{DynamicResource PrimaryAccentColor}" />
 
+            <!-- Historial -->
             <CollectionView ItemsSource="{Binding HistorialProgreso}"
                             BackgroundColor="Transparent">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="5" Orientation="Horizontal" Spacing="20">
                             <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
-                                   TextColor="White"
+                                   Style="{StaticResource LabelStyle}"
                                    FontSize="14" />
                             <Label Text="{Binding Peso, StringFormat='{0} kg'}"
-                                   TextColor="White"
+                                   Style="{StaticResource LabelStyle}"
                                    FontSize="14" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!-- Título gráfico -->
             <Label Text="Progreso de Peso (kg)"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    HorizontalOptions="Center" />
 
-            <!-- GRAFICO -->
-            <Frame BorderColor="#333"
+            <!-- Gráfico -->
+            <Frame BorderColor="{DynamicResource AccentColor}"
                    CornerRadius="15"
                    Padding="20"
-                   BackgroundColor="#1E1E1E"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
                    HasShadow="True">
                 <microcharts:ChartView 
                     Chart="{Binding GraficoPeso}" 

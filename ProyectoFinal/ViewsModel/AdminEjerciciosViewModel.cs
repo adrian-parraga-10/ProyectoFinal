@@ -121,8 +121,8 @@ public class AdminEjerciciosViewModel : INotifyPropertyChanged
 
     private void AgregarMusculo()
     {
-        EjercicioSeleccionado.MusculosTrabajados.Add(""); // Asegúrate de añadir un músculo vacío
-        OnPropertyChanged(nameof(EjercicioSeleccionado.MusculosTrabajados)); // Notificar que la colección ha cambiado
+        EjercicioSeleccionado.MusculosTrabajados.Add(""); 
+        OnPropertyChanged(nameof(EjercicioSeleccionado.MusculosTrabajados)); 
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

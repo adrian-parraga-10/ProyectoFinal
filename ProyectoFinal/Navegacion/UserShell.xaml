@@ -1,35 +1,56 @@
 <Shell
-    x:Class="ProyectoFinal.UserShell"
+   x:Class="ProyectoFinal.UserShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ProyectoFinal.Vista"
     Shell.FlyoutBehavior="Flyout"
-    BackgroundColor="#121212"
+    BackgroundColor="{DynamicResource BackgroundColor}"
+    TitleColor="{DynamicResource Shell.TitleColor}"
+    ForegroundColor="{DynamicResource Shell.ForegroundColor}"
+    DisabledColor="{DynamicResource Shell.DisabledColor}"
+    UnselectedColor="{DynamicResource Shell.UnselectedColor}"
     Title="ProyectoFinal">
 
+    <!-- Estilo del texto del Flyout -->
+    <Shell.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        </Style>
+    </Shell.Resources>
+    
+    <!-- 🔼 Imagen en la parte superior del menú -->
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="20" BackgroundColor="{DynamicResource CardColor}">
+            <Image Source="corazon.png"
+                   HeightRequest="100"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
     <!-- Sección: Entrenamiento -->
-    <FlyoutItem Title="Entrenamiento" Icon="fitness.png">
-        <ShellContent Title="Rutinas" ContentTemplate="{DataTemplate local:RutinasView}" />
-        <ShellContent Title="Ejercicios" ContentTemplate="{DataTemplate local:EjerciciosView}" />
-        <ShellContent Title="Crear Rutina" ContentTemplate="{DataTemplate local:CrearRutinaView}" />
+    <FlyoutItem Title="Entrenamiento" Icon="fitness.png" >
+        <ShellContent Title="Rutinas" ContentTemplate="{DataTemplate local:RutinasView}"  />
+        <ShellContent Title="Ejercicios" ContentTemplate="{DataTemplate local:EjerciciosView}"  />
+        <ShellContent Title="Crear Rutina" ContentTemplate="{DataTemplate local:CrearRutinaView}"  />
         <ShellContent Title="Historial" ContentTemplate="{DataTemplate local:HistorialSesionesView}" />
     </FlyoutItem>
 
     <!-- Sección: Nutrición -->
     <FlyoutItem Title="Nutrición" Icon="food.png">
         <ShellContent Title="Alimentos" ContentTemplate="{DataTemplate local:AlimentosView}" />
-        <ShellContent Title="Consumo Diario" ContentTemplate="{DataTemplate local:ConsumoDiarioView}" />
-        <ShellContent Title="Historial Consumo" ContentTemplate="{DataTemplate local:HistorialConsumoView}" />
+        <ShellContent Title="Consumo Diario" ContentTemplate="{DataTemplate local:ConsumoDiarioView}"  />
+        <ShellContent Title="Historial Consumo" ContentTemplate="{DataTemplate local:HistorialConsumoView}"  />
     </FlyoutItem>
 
     <!-- Sección: Progreso -->
-    <FlyoutItem Title="Progreso" Icon="stat.png">
-        <ShellContent Title="Seguimiento Físico" ContentTemplate="{DataTemplate local:SeguimientoFisicoView}" />
-        <ShellContent Title="Estadísticas" ContentTemplate="{DataTemplate local:EstadisticasView}" />
+    <FlyoutItem Title="Progreso" Icon="stat.png" >
+        <ShellContent Title="Seguimiento Físico" ContentTemplate="{DataTemplate local:SeguimientoFisicoView}"  />
+        <ShellContent Title="Estadísticas" ContentTemplate="{DataTemplate local:EstadisticasView}"  />
     </FlyoutItem>
 
     <!-- Sección: Perfil -->
-    <FlyoutItem Title="Perfil" Icon="perfil.png">
+    <FlyoutItem Title="Perfil" Icon="perfil.png" >
         <ShellContent Title="Mi Perfil" ContentTemplate="{DataTemplate local:PerfilView}" />
     </FlyoutItem>
 
@@ -37,8 +58,13 @@
          ContentTemplate="{DataTemplate local:Login}"
          Route="Login"
          Icon="logout.png"
-         Title="Cerrar sesion"
+         Title="Cerrar sesión"
          Shell.FlyoutBehavior="Disabled"
-         Shell.NavBarIsVisible="False" />
+         Shell.NavBarIsVisible="False"/>
 
+    <ShellContent
+         ContentTemplate="{DataTemplate local:AjustesView}"
+         Route="Ajustes"
+         Icon="logout.png"
+         Title="Ajustes"/>
 </Shell>

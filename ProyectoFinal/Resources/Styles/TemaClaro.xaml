@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoFinal.Resources.Styles.TemaClaro">
+
+    <!-- Colores principales -->
+    <Color x:Key="PrimaryColor">#FFFFFF</Color>
+    <Color x:Key="SecondaryColor">#F2F2F2</Color>
+    <Color x:Key="AccentColor">#DDDDDD</Color>
+    <Color x:Key="PrimaryAccentColor">#00C78C</Color>
+
+    <!-- Texto -->
+    <Color x:Key="TextColor">#000000</Color>
+    <Color x:Key="PlaceholderColor">#666666</Color>
+    <Color x:Key="ErrorTextColor">Red</Color>
+    <Color x:Key="ButtonTextColor">White</Color>
+
+    <!-- Fondos -->
+    <Color x:Key="BackgroundColor">#FFFFFF</Color>
+    <Color x:Key="CardColor">#F2F2F7</Color>
+    <Color x:Key="EntryBackgroundColor">#EEEEEE</Color>
+
+    <Color x:Key="FlyoutTextColor">#000000</Color>
+
+    <Color x:Key="Shell.ForegroundColor">#000000</Color>
+    <!-- Color al seleccionar -->
+    <Color x:Key="Shell.UnselectedColor">#666666</Color>
+    <!-- Color cuando NO está seleccionado -->
+    <Color x:Key="Shell.TitleColor">#000000</Color>
+    <Color x:Key="Shell.DisabledColor">#AAAAAA</Color>
+    <Color x:Key="Shell.BackgroundColor">#FFFFFF</Color>
+
+</ResourceDictionary>

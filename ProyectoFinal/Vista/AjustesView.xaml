@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ProyectoFinal.ViewModels"
+             x:Class="ProyectoFinal.Vista.AjustesView"
+             BackgroundColor="{DynamicResource BackgroundColor}">
+
+
+    <VerticalStackLayout Padding="20" Spacing="20" VerticalOptions="Center">
+
+        <CheckBox IsChecked="{Binding TemaClaroSeleccionado, Mode=TwoWay}" />
+        <Label Text="Tema Claro" TextColor="{DynamicResource TextColor}" />
+
+        <CheckBox IsChecked="{Binding TemaOscuroSeleccionado, Mode=TwoWay}" />
+        <Label Text="Tema Oscuro" TextColor="{DynamicResource TextColor}" />
+
+    </VerticalStackLayout>
+
+</ContentPage>

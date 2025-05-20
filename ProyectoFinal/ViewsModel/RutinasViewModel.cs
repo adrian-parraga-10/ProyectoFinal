@@ -23,7 +23,6 @@ public class RutinasViewModel : INotifyPropertyChanged
             {
                 _rutaSeleccionada = value;
                 OnPropertyChanged();
-                // Actualiza la visibilidad de los detalles si la rutina seleccionada cambia
                 OnRutaSeleccionadaChanged();
             }
         }
@@ -44,20 +43,22 @@ public class RutinasViewModel : INotifyPropertyChanged
 
     public RutinasViewModel()
     {
-        CargarRutinas();
         IrARegistrarRutinaCommand = new Command(IrARegistrarRutina);
         EliminarRutinaCommand = new Command<Rutina>(async (rutina) => await EliminarRutinaAsync(rutina));
     }
 
-    private async void CargarRutinas()
+
+    public async Task CargarRutinasAsync()
     {
+        Rutinas.Clear();
+
         try
         {
             var listaRutinas = await _bbdd.ObtenerRutinasUsuarioActualAsync();
 
             if (listaRutinas != null && listaRutinas.Count > 0)
             {
-                foreach (var rutina in listaRutinas.ToList())
+                foreach (var rutina in listaRutinas)
                 {
                     var rutinaConEjercicios = await _bbdd.ObtenerRutinaConEjercicios(rutina.Id);
                     if (rutinaConEjercicios != null)
@@ -76,6 +77,7 @@ public class RutinasViewModel : INotifyPropertyChanged
             Console.WriteLine($"Error al cargar las rutinas: {ex.Message}");
         }
     }
+
 
 
     private async void OnRutaSeleccionadaChanged()
