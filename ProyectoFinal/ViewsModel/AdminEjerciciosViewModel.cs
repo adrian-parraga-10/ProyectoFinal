@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-
 public class AdminEjerciciosViewModel : INotifyPropertyChanged
 {
     private readonly BBDD _bbdd = new();
@@ -23,7 +22,7 @@ public class AdminEjerciciosViewModel : INotifyPropertyChanged
         }
     }
 
-    private Ejercicio _ejercicioSeleccionado = new();
+    private Ejercicio _ejercicioSeleccionado = new Ejercicio();
     public Ejercicio EjercicioSeleccionado
     {
         get => _ejercicioSeleccionado;
@@ -38,27 +37,13 @@ public class AdminEjerciciosViewModel : INotifyPropertyChanged
     public Command EliminarCommand { get; }
     public Command NuevoCommand { get; }
 
-    public Command EliminarMusculoCommand { get; }
-    public Command AgregarMusculoCommand { get; }
-
     public AdminEjerciciosViewModel()
     {
         GuardarCommand = new Command(async () => await Guardar());
         EliminarCommand = new Command(async () => await Eliminar());
         NuevoCommand = new Command(Nuevo);
-        AgregarMusculoCommand = new Command(AgregarMusculo);
-        EliminarMusculoCommand = new Command<string>(EliminarMusculo);
 
         Cargar();
-    }
-
-    private void EliminarMusculo(string musculo)
-    {
-        if (!string.IsNullOrWhiteSpace(musculo))
-        {
-            EjercicioSeleccionado.MusculosTrabajados.Remove(musculo);
-            OnPropertyChanged(nameof(EjercicioSeleccionado.MusculosTrabajados)); 
-        }
     }
 
     private async Task Cargar()
@@ -74,6 +59,7 @@ public class AdminEjerciciosViewModel : INotifyPropertyChanged
     private void FiltrarEjercicios()
     {
         EjerciciosFiltrados.Clear();
+
         var filtrados = string.IsNullOrWhiteSpace(Busqueda)
             ? Ejercicios
             : new ObservableCollection<Ejercicio>(Ejercicios.Where(e =>
@@ -86,43 +72,51 @@ public class AdminEjerciciosViewModel : INotifyPropertyChanged
 
     private async Task Guardar()
     {
-        if (string.IsNullOrWhiteSpace(EjercicioSeleccionado?.Nombre)) return;
+        try
+        {
+            if (string.IsNullOrWhiteSpace(EjercicioSeleccionado?.Nombre))
+            {
+                await Application.Current.MainPage.DisplayAlert("Aviso", "El nombre del ejercicio es obligatorio.", "OK");
+                return;
+            }
 
-        // Filtrar los músculos vacíos
-        EjercicioSeleccionado.MusculosTrabajados = new ObservableCollection<string>(
-            EjercicioSeleccionado.MusculosTrabajados.Where(m => !string.IsNullOrWhiteSpace(m))
-        );
+            if (EjercicioSeleccionado.Id == ObjectId.Empty)
+                await _bbdd.InsertarEjercicioAsync(EjercicioSeleccionado);
+            else
+                await _bbdd.ActualizarEjercicioAsync(EjercicioSeleccionado);
 
-        if (EjercicioSeleccionado.Id == ObjectId.Empty)
-            await _bbdd.InsertarEjercicioAsync(EjercicioSeleccionado);
-        else
-            await _bbdd.ActualizarEjercicioAsync(EjercicioSeleccionado);
+            await Application.Current.MainPage.DisplayAlert("Éxito", "Ejercicio guardado correctamente.", "OK");
+            await Cargar();
 
-        await Cargar();
-        Nuevo();
+            Nuevo();
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo guardar el ejercicio: {ex.Message}", "OK");
+        }
     }
+
 
     private async Task Eliminar()
     {
         if (EjercicioSeleccionado?.Id == ObjectId.Empty) return;
+
+        bool confirmar = await Application.Current.MainPage.DisplayAlert(
+            "Confirmar eliminación",
+            $"¿Seguro que deseas eliminar el ejercicio \"{EjercicioSeleccionado.Nombre}\"?",
+            "Sí", "No");
+
+        if (!confirmar) return;
 
         await _bbdd.EliminarEjercicioAsync(EjercicioSeleccionado.Id.ToString());
         await Cargar();
         Nuevo();
     }
 
+
     private void Nuevo()
     {
-        EjercicioSeleccionado = new Ejercicio
-        {
-            MusculosTrabajados = new ObservableCollection<string> { "" }
-        };
-    }
-
-    private void AgregarMusculo()
-    {
-        EjercicioSeleccionado.MusculosTrabajados.Add(""); 
-        OnPropertyChanged(nameof(EjercicioSeleccionado.MusculosTrabajados)); 
+        EjercicioSeleccionado = new Ejercicio();
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

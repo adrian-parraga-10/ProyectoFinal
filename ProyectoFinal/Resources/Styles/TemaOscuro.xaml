@@ -28,6 +28,7 @@
     <Color x:Key="Shell.DisabledColor">#777777</Color>
     <Color x:Key="Shell.BackgroundColor">#121212</Color>
 
+    <Color x:Key="BorderColor">#444444</Color>
 
-
+    <Color x:Key="SeparatorColor" >#2E2E2E</Color>
 </ResourceDictionary>

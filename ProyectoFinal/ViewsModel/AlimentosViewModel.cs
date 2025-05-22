@@ -41,7 +41,7 @@ namespace ProyectoFinal.ViewsModel
             {
                 _textoBusqueda = value;
                 OnPropertyChanged();
-                _ = BuscarDesdeServidorAsync(_textoBusqueda);
+                BuscarDesdeServidorAsync(_textoBusqueda);
             }
         }
 

@@ -5,49 +5,49 @@
              x:Class="ProyectoFinal.Vista.HistorialConsumoView"
              Title="Historial de Consumo"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#121212">
+             BackgroundColor="{DynamicResource BackgroundColor}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <Label Text="Selecciona una fecha"
                    FontSize="18"
-                   TextColor="White"
+                   TextColor="{DynamicResource TextColor}"
                    HorizontalOptions="Center"/>
 
             <!-- Estilizado del DatePicker -->
-            <Frame BorderColor="#4CAF50"
+            <Frame BorderColor="{DynamicResource PrimaryAccentColor}"
                    CornerRadius="10"
                    Padding="10"
-                   BackgroundColor="#1E1E1E">
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}">
                 <DatePicker Date="{Binding FechaSeleccionada}"
                             MinimumDate="{Binding FechaMinima}"
                             MaximumDate="{Binding FechaMaxima}"
-                            TextColor="White"
-                            BackgroundColor="#1E1E1E"/>
+                            TextColor="{DynamicResource TextColor}"
+                            BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
             </Frame>
 
             <Label Text="Alimentos consumidos ese día:"
                    FontAttributes="Bold"
                    FontSize="18"
-                   TextColor="White"/>
+                   TextColor="{DynamicResource TextColor}"/>
 
             <CollectionView ItemsSource="{Binding AlimentosDeEseDia}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="0,5"
                                Padding="15"
-                               BorderColor="#4CAF50"
-                               BackgroundColor="#1E1E1E"
+                               BorderColor="{DynamicResource PrimaryAccentColor}"
+                               BackgroundColor="{DynamicResource CardColor}"
                                CornerRadius="12"
                                HasShadow="True">
                             <VerticalStackLayout Spacing="5">
-                                <Label Text="{Binding Nombre}" FontSize="16" FontAttributes="Bold" TextColor="White"/>
-                                <Label Text="{Binding CantidadGramos, StringFormat='Cantidad: {0} g'}" FontSize="14" TextColor="White"/>
-                                <Label Text="{Binding Calorias, StringFormat='Calorías: {0} kcal'}" FontSize="12" TextColor="White"/>
-                                <Label Text="{Binding Proteinas, StringFormat='Proteínas: {0} g'}" FontSize="12" TextColor="White"/>
-                                <Label Text="{Binding Carbohidratos, StringFormat='Carbohidratos: {0} g'}" FontSize="12" TextColor="White"/>
-                                <Label Text="{Binding Grasas, StringFormat='Grasas: {0} g'}" FontSize="12" TextColor="White"/>
+                                <Label Text="{Binding Nombre}" FontSize="16" FontAttributes="Bold" TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding CantidadGramos, StringFormat='Cantidad: {0} g'}" FontSize="14" TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Calorias, StringFormat='Calorías: {0} kcal'}" FontSize="12" TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Proteinas, StringFormat='Proteínas: {0} g'}" FontSize="12" TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Carbohidratos, StringFormat='Carbohidratos: {0} g'}" FontSize="12" TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Grasas, StringFormat='Grasas: {0} g'}" FontSize="12" TextColor="{DynamicResource TextColor}" />
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
@@ -57,10 +57,10 @@
             <Label Text="Distribución de macronutrientes"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="White"
+                   TextColor="{DynamicResource TextColor}"
                    HorizontalOptions="Center"/>
 
-            <Frame BorderColor="#4CAF50" CornerRadius="15" Padding="20" BackgroundColor="Transparent">
+            <Frame BorderColor="{DynamicResource PrimaryAccentColor}"  CornerRadius="15" Padding="20" BackgroundColor="Transparent">
                 <microcharts:ChartView 
                     Chart="{Binding GraficoMacros}" 
                     HeightRequest="550"
@@ -70,8 +70,6 @@
                     BackgroundColor="Transparent"/>
             </Frame>
 
-
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

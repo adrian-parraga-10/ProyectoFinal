@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
@@ -11,20 +12,26 @@
 
             <!-- Etiqueta del peso -->
             <Label Text="Tu peso actual (kg):"
-                   Style="{StaticResource LabelStyle}"
-                   FontSize="16" />
+                   Style="{DynamicResource LabelStyle}"
+                   FontSize="16"
+                   TextColor="{DynamicResource TextColor}" />
 
             <!-- Campo de entrada de peso -->
-            <Entry Style="{StaticResource EntryStyle}"
+            <Entry Style="{DynamicResource EntryStyle}"
                    Keyboard="Numeric"
                    Text="{Binding Peso, Mode=TwoWay}" 
-                   Placeholder="Ej: 70.5" 
-                   Margin="0,0,0,10" />
+                   Placeholder="Ej: 70.5"
+                   Margin="0,0,0,10"
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
             <!-- Botón para guardar progreso -->
             <Button Text="Guardar Progreso"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Command="{Binding GuardarProgresoCommand}" />
+                    Style="{DynamicResource PrimaryButtonStyle}"
+                    Command="{Binding GuardarProgresoCommand}"
+                    BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                    TextColor="{DynamicResource ButtonTextColor}" />
 
             <!-- Título historial -->
             <Label Text="Historial de Peso"
@@ -39,11 +46,11 @@
                     <DataTemplate>
                         <StackLayout Padding="5" Orientation="Horizontal" Spacing="20">
                             <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}"
-                                   Style="{StaticResource LabelStyle}"
-                                   FontSize="14" />
+                                   FontSize="14"
+                                   TextColor="{DynamicResource TextColor}" />
                             <Label Text="{Binding Peso, StringFormat='{0} kg'}"
-                                   Style="{StaticResource LabelStyle}"
-                                   FontSize="14" />
+                                   FontSize="14"
+                                   TextColor="{DynamicResource TextColor}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

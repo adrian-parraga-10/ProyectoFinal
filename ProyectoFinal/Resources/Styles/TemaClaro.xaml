@@ -30,4 +30,10 @@
     <Color x:Key="Shell.DisabledColor">#AAAAAA</Color>
     <Color x:Key="Shell.BackgroundColor">#FFFFFF</Color>
 
+    <Color x:Key="BorderColor">#CCCCCC</Color>
+
+    <Color x:Key="SeparatorColor" >#CCCCCC</Color>
+   
+
+
 </ResourceDictionary>

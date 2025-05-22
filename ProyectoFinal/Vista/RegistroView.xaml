@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:ProyectoFinal.ViewModels"
              x:Class="ProyectoFinal.Vista.RegistroView"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
@@ -11,66 +11,66 @@
 
             <Label Text="Crear una cuenta"
                    FontSize="28"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
             <Entry Placeholder="Nombre completo"
                    Text="{Binding Nombre}"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Correo electrónico"
                    Text="{Binding Email}"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA"
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
                    Keyboard="Email" />
 
             <Entry Placeholder="Contraseña"
                    Text="{Binding Password}"
                    IsPassword="True"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Confirmar Contraseña"
                    Text="{Binding ConfirmarPassword}"
                    IsPassword="True"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Edad"
                    Text="{Binding EdadTexto}"
                    Keyboard="Numeric"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Sexo"
                    Text="{Binding Sexo}"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Peso (kg)"
                    Text="{Binding PesoTexto}"
                    Keyboard="Numeric"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Entry Placeholder="Altura (m)"
                    Text="{Binding AlturaTexto}"
                    Keyboard="Numeric"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" />
 
             <Button Text="Registrarse"
                     Command="{Binding RegistroCommand}"
-                    BackgroundColor="#00FF99"
-                    TextColor="Black"
+                    BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
                     CornerRadius="10"
                     FontAttributes="Bold"
                     HeightRequest="50" />
 
             <Label Text="{Binding StatusMessage}"
-                   TextColor="Red"
+                   TextColor="{DynamicResource ErrorColor}"
                    FontSize="14"
                    HorizontalOptions="Center" />
         </VerticalStackLayout>

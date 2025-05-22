@@ -55,6 +55,12 @@
     </FlyoutItem>
 
     <ShellContent
+      ContentTemplate="{DataTemplate local:AjustesView}"
+      Route="Ajustes"
+      Icon="sett.png"
+      Title="Ajustes"/>
+    
+    <ShellContent
          ContentTemplate="{DataTemplate local:Login}"
          Route="Login"
          Icon="logout.png"
@@ -62,9 +68,5 @@
          Shell.FlyoutBehavior="Disabled"
          Shell.NavBarIsVisible="False"/>
 
-    <ShellContent
-         ContentTemplate="{DataTemplate local:AjustesView}"
-         Route="Ajustes"
-         Icon="logout.png"
-         Title="Ajustes"/>
+   
 </Shell>

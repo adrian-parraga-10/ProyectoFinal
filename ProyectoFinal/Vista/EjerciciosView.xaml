@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.EjerciciosView"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Shell.NavBarIsVisible="False">
 
     <Grid Padding="20" RowSpacing="20">
@@ -15,17 +15,16 @@
         <StackLayout Grid.Row="0" Spacing="4">
             <Label Text="Ejercicios"
                    FontSize="32"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold" />
-            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
+            <BoxView Color="{DynamicResource SeparatorColor}" HeightRequest="2" HorizontalOptions="Fill"/>
         </StackLayout>
 
         <SearchBar Placeholder="Buscar ejercicio..."
-                    Text="{Binding TextoBusqueda}"
-                    TextColor="White"
-                    PlaceholderColor="#888"
-                    BackgroundColor="#1E1E1E"/>
-
+                   Text="{Binding TextoBusqueda}"
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
 
         <!-- Contenido principal -->
         <Grid Grid.Row="1" ColumnSpacing="20">
@@ -41,8 +40,8 @@
                             SelectionChanged="OnItemTapped">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#1E1E1E"
-                               BorderColor="#2E2E2E"
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                               BorderColor="{DynamicResource SeparatorColor}"
                                CornerRadius="12"
                                Margin="5"
                                Padding="12"
@@ -56,14 +55,14 @@
                                 <StackLayout>
                                     <Label Text="{Binding Nombre}"
                                            FontSize="18"
-                                           TextColor="White"
+                                           TextColor="{DynamicResource TextColor}"
                                            FontAttributes="Bold" />
                                     <Label Text="{Binding Categoria}"
                                            FontSize="14"
-                                           TextColor="#AAAAAA" />
+                                           TextColor="{DynamicResource TextColor}" />
                                     <Label Text="{Binding Nivel, StringFormat='Nivel: {0}'}"
                                            FontSize="14"
-                                           TextColor="#AAAAAA" />
+                                           TextColor="{DynamicResource TextColor}" />
                                 </StackLayout>
                             </StackLayout>
 
@@ -79,12 +78,12 @@
 
                 <Label Text="Detalles del ejercicio"
                        FontSize="26"
-                       TextColor="#00FF99"
+                       TextColor="{DynamicResource PrimaryAccentColor}"
                        FontAttributes="Bold"
                        HorizontalOptions="Center" />
 
                 <!-- Imagen grande del ejercicio -->
-                <Frame BackgroundColor="#2E2E2E"
+                <Frame BackgroundColor="{DynamicResource SeparatorColor}"
                        CornerRadius="12"
                        Padding="0"
                        HeightRequest="200"
@@ -97,44 +96,31 @@
                            VerticalOptions="Center" />
                 </Frame>
 
-                <Frame BackgroundColor="#1E1E1E"
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
                        CornerRadius="12"
                        Padding="20"
                        HasShadow="False">
                     <StackLayout Spacing="10">
                         <Label Text="{Binding EjercicioSeleccionado.Nombre}"
                                FontSize="20"
-                               TextColor="White"
+                               TextColor="{DynamicResource TextColor}"
                                FontAttributes="Bold" />
 
                         <Label Text="{Binding EjercicioSeleccionado.Categoria, StringFormat='Categoría: {0}'}"
                                FontSize="14"
-                               TextColor="#AAAAAA" />
+                               TextColor="{DynamicResource TextColor}" />
 
                         <Label Text="{Binding EjercicioSeleccionado.Descripcion, StringFormat='Descripción: {0}'}"
                                FontSize="14"
-                               TextColor="#AAAAAA" />
+                               TextColor="{DynamicResource TextColor}" />
 
                         <Label Text="{Binding EjercicioSeleccionado.Nivel, StringFormat='Nivel: {0}'}"
                                FontSize="14"
-                               TextColor="#AAAAAA" />
+                               TextColor="{DynamicResource TextColor}" />
 
-                        <Label Text="Músculos trabajados:"
-                               FontSize="14"
-                               TextColor="#AAAAAA"
-                               FontAttributes="Bold" />
-
-                        <StackLayout>
-                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[0]}" FontSize="14" TextColor="#AAAAAA"/>
-                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[1]}" FontSize="14" TextColor="#AAAAAA"/>
-                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[2]}" FontSize="14" TextColor="#AAAAAA"/>
-                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[3]}" FontSize="14" TextColor="#AAAAAA"/>
-                            <Label Text="{Binding EjercicioSeleccionado.MusculosTrabajados[4]}" FontSize="14" TextColor="#AAAAAA"/>
-                        </StackLayout>
                     </StackLayout>
                 </Frame>
             </StackLayout>
         </Grid>
     </Grid>
 </ContentPage>
-

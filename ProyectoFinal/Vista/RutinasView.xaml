@@ -77,7 +77,7 @@
 
                         <Label Text="{Binding RutaSeleccionada.Descripcion}"
                                FontSize="14"
-                               TextColor="{DynamicResource PlaceholderColor}" />
+                               TextColor="{DynamicResource TextColor}" />
 
                         <Label Text="🏋️ Ejercicios:"
                                FontSize="16"
@@ -89,7 +89,7 @@
                                 <DataTemplate>
                                     <StackLayout Padding="5">
                                         <Label Text="{Binding Nombre}" FontSize="16" TextColor="{DynamicResource TextColor}" />
-                                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="{DynamicResource PlaceholderColor}" />
+                                        <Label Text="{Binding Categoria}" FontSize="14" TextColor="{DynamicResource TextColor}" />
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

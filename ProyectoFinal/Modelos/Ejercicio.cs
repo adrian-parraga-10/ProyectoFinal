@@ -19,10 +19,9 @@ public class Ejercicio
     [BsonElement("nivel")]
     public string Nivel { get; set; }
 
-    [BsonElement("musculos_trabajados")]
-    public ObservableCollection<string> MusculosTrabajados { get; set; } = new ObservableCollection<string>();
-
     [BsonElement("imagen")]
     public string Imagen { get; set; }
 
 }
+
+

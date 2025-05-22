@@ -402,20 +402,7 @@ public class BBDD
         await collection.DeleteOneAsync(filtro);
     }
 
-    // Método para actualizar un usuario existente
-    public async Task ActualizarAdminUsuarioAsync(Usuario usuario)
-    {
-        var collection = _database.GetCollection<Usuario>("usuarios");
-        var filtro = Builders<Usuario>.Filter.Eq("Id", usuario.Id);
-        var update = Builders<Usuario>.Update
-            .Set(u => u.Nombre, usuario.Nombre)
-            .Set(u => u.Email, usuario.Email)
-            .Set(u => u.Edad, usuario.Edad)
-            .Set(u => u.Sexo, usuario.Sexo)
-            .Set(u => u.Peso, usuario.Peso)
-            .Set(u => u.Altura, usuario.Altura);
-        await collection.UpdateOneAsync(filtro, update);
-    }
+    
 }
 
 

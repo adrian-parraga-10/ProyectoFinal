@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.PerfilView"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
@@ -15,69 +14,69 @@
             <!-- Título -->
             <Label Text="👤 Perfil del Usuario"
                    FontSize="30"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill" />
+            <BoxView Color="{DynamicResource SeparatorColor}" HeightRequest="2" HorizontalOptions="Fill" />
 
             <!-- Entradas -->
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Nombre"
                        Text="{Binding Usuario.Nombre}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Email"
                        Text="{Binding Usuario.Email}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Edad"
                        Keyboard="Numeric"
                        Text="{Binding Usuario.Edad}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Sexo"
                        Text="{Binding Usuario.Sexo}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Peso (kg)"
                        Keyboard="Numeric"
                        Text="{Binding Usuario.Peso}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
-            <Frame CornerRadius="10" BackgroundColor="#1E1E1E" Padding="10">
+            <Frame CornerRadius="10" BackgroundColor="{DynamicResource CardColor}" Padding="10">
                 <Entry Placeholder="Altura (cm)"
                        Keyboard="Numeric"
                        Text="{Binding Usuario.Altura}"
-                       TextColor="White"
-                       PlaceholderColor="#AAAAAA"
+                       TextColor="{DynamicResource TextColor}"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
                        BackgroundColor="Transparent" />
             </Frame>
 
             <!-- Botón Guardar -->
             <Button Text="Guardar Cambios"
                     Command="{Binding GuardarCambiosCommand}"
-                    BackgroundColor="#00FF99"
-                    TextColor="Black"
+                    BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
                     FontAttributes="Bold"
                     CornerRadius="10"
                     HeightRequest="50" />

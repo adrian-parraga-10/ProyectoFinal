@@ -5,41 +5,59 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ProyectoFinal.Vista"
     Shell.FlyoutBehavior="Flyout"
+    BackgroundColor="{DynamicResource BackgroundColor}"
+    TitleColor="{DynamicResource Shell.TitleColor}"
+    ForegroundColor="{DynamicResource Shell.ForegroundColor}"
+    DisabledColor="{DynamicResource Shell.DisabledColor}"
+    UnselectedColor="{DynamicResource Shell.UnselectedColor}"
     Title="ProyectoFinal">
 
 
+    <!-- Estilo del texto del Flyout -->
+    <Shell.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        </Style>
+    </Shell.Resources>
+
+    <!-- 🔼 Imagen en la parte superior del menú -->
     <Shell.FlyoutHeader>
-        <Grid HeightRequest="100" BackgroundColor="{DynamicResource PrimaryColor}">
-            <Image Source="icono.png" />
-        </Grid>
+        <StackLayout Padding="20" BackgroundColor="{DynamicResource CardColor}">
+            <Image Source="corazon.png"
+               HeightRequest="100"
+               Aspect="AspectFit"
+               HorizontalOptions="Center" />
+        </StackLayout>
     </Shell.FlyoutHeader>
 
- 
+
     <ShellContent Route="AlimentosView"
-        Icon="question.png"
+        Icon="food.png"
         Title="Alimentos"
         ContentTemplate="{DataTemplate local:AdminAlimentosView}" />
 
     <ShellContent Route="EjerciciosView"
-        Icon="question.png"
+        Icon="fitness.png"
         Title="Ejercicios"
         ContentTemplate="{DataTemplate local:AdminEjerciciosView}" />
 
-    <ShellContent Route="RutinasView"
-        Icon="question.png"
-        Title="Rutinas"
-        ContentTemplate="{DataTemplate local:RutinasView}" />
+    <ShellContent
+       Title="Usuarios"
+       ContentTemplate="{DataTemplate local:AdminUsuariosView}"/>
 
     <ShellContent
          ContentTemplate="{DataTemplate local:Login}"
+         Icon="logout.png"
          Route="Login"
          Title="Cerrar sesion"
          Shell.FlyoutBehavior="Disabled"
          Shell.NavBarIsVisible="False" />
 
     <ShellContent
-          Title="Usuarios"
-          ContentTemplate="{DataTemplate local:AdminUsuariosView}"/>
+          ContentTemplate="{DataTemplate local:AjustesView}"
+          Route="Ajustes"
+          Icon="sett.png"
+          Title="Ajustes"/>
 
 
 

@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="ProyectoFinal.Vista.EstadisticasView"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Shell.NavBarIsVisible="False"
              Title="Estadísticas">
 
@@ -11,52 +12,61 @@
 
             <Label Text="📊 Estadísticas de Entrenamiento"
                    FontSize="32"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <BoxView Color="#2E2E2E" HeightRequest="2" HorizontalOptions="Fill"/>
+            <BoxView Color="{DynamicResource DividerColor}" HeightRequest="2" HorizontalOptions="Fill"/>
 
             <!-- Mensaje -->
             <Label Text="{Binding Mensaje}"
-                   TextColor="Red"
+                   TextColor="{DynamicResource ErrorTextColor}"
                    HorizontalOptions="Center"
                    IsVisible="{Binding Mensaje, Converter={StaticResource StringNotNullOrEmptyConverter}}" />
 
             <!-- Resumen numérico -->
             <StackLayout Spacing="10">
-                <Label Text="Total de Sesiones" FontSize="24" TextColor="White" />
-                <Label Text="{Binding TotalSesiones}" FontSize="18" TextColor="White" />
+                <Label Text="Total de Sesiones" FontSize="24" TextColor="{DynamicResource TextColor}" />
+                <Label Text="{Binding TotalSesiones}" FontSize="18" TextColor="{DynamicResource TextColor}" />
 
-                <Label Text="Promedio de Ejercicios por Sesión" FontSize="24" TextColor="White" />
-                <Label Text="{Binding PromedioEjerciciosPorSesion}" FontSize="18" TextColor="White" />
+                <Label Text="Promedio de Ejercicios por Sesión" FontSize="24" TextColor="{DynamicResource TextColor}" />
+                <Label Text="{Binding PromedioEjerciciosPorSesion}" FontSize="18" TextColor="{DynamicResource TextColor}" />
 
-                <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" TextColor="White" />
-                <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" TextColor="White" />
+                <Label Text="Promedio de Repeticiones por Ejercicio" FontSize="24" TextColor="{DynamicResource TextColor}" />
+                <Label Text="{Binding PromedioRepeticionesPorEjercicio}" FontSize="18" TextColor="{DynamicResource TextColor}" />
 
-                <Label Text="Promedio de Peso Levantado (kg)" FontSize="24" TextColor="White" />
-                <Label Text="{Binding PromedioPesoLevado}" FontSize="18" TextColor="White" />
+                <Label Text="Promedio de Peso Levantado (kg)" FontSize="24" TextColor="{DynamicResource TextColor}" />
+                <Label Text="{Binding PromedioPesoLevado}" FontSize="18" TextColor="{DynamicResource TextColor}" />
             </StackLayout>
 
             <!-- Gráficos -->
-            <Label Text="Evolución semanal de peso levantado (kg)" FontSize="24" TextColor="White" HorizontalOptions="Center" />
-            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+            <Label Text="Evolución semanal de peso levantado (kg)" FontSize="24" TextColor="{DynamicResource TextColor}" HorizontalOptions="Center" />
+            <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   BorderColor="{DynamicResource FrameBorderColor}"
+                   CornerRadius="15"
+                   Padding="15">
                 <microcharts:ChartView Chart="{Binding GraficoPesoSemanal}"
-                                   HeightRequest="250" />
+                                       HeightRequest="250" />
             </Frame>
 
-            <Label Text="Frecuencia semanal de entrenamiento" FontSize="24" TextColor="White" HorizontalOptions="Center" />
-            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+            <Label Text="Frecuencia semanal de entrenamiento" FontSize="24" TextColor="{DynamicResource TextColor}" HorizontalOptions="Center" />
+            <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   BorderColor="{DynamicResource FrameBorderColor}"
+                   CornerRadius="15"
+                   Padding="15">
                 <microcharts:ChartView Chart="{Binding GraficoFrecuenciaSemanal}"
-                                   HeightRequest="250" />
+                                       HeightRequest="250" />
             </Frame>
 
-            <Label Text="Ejercicios realizados (conteo)" FontSize="24" TextColor="White" HorizontalOptions="Center" />
-            <Frame BackgroundColor="Transparent" BorderColor="Gray" CornerRadius="15" Padding="15">
+            <Label Text="Ejercicios realizados (conteo)" FontSize="24" TextColor="{DynamicResource TextColor}" HorizontalOptions="Center" />
+            <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   BorderColor="{DynamicResource FrameBorderColor}"
+                   CornerRadius="15"
+                   Padding="15">
                 <microcharts:ChartView Chart="{Binding GraficoEjercicios}"
-                                   HeightRequest="250" />
+                                       HeightRequest="250" />
             </Frame>
 
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage> 
+</ContentPage>

@@ -74,13 +74,13 @@ namespace ProyectoFinal.ViewModels
                 sesionEntrenamiento.Ejercicios.Add(ejercicioSesion);
             }
 
+            await _bbdd.GuardarSesionEntrenamientoAsync(sesionEntrenamiento);         
 
-
-            await _bbdd.GuardarSesionEntrenamientoAsync(sesionEntrenamiento);
             await Application.Current.MainPage.DisplayAlert("Éxito", "Sesión guardada correctamente.", "OK");
 
             // Limpiar campos
             EjerciciosRutina.Clear();
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private void ActualizarSeries(EjercicioSesionEditable ejercicio)

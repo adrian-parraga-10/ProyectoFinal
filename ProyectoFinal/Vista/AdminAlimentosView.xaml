@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.AdminAlimentosView"
-             BackgroundColor="#121212"
-             Shell.NavBarIsVisible="False"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="Gestión de Alimentos">
 
     <ScrollView>
@@ -13,87 +12,125 @@
             <Label Text="🍎 Gestión de Alimentos"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    HorizontalOptions="Center" />
 
             <!-- Campo de búsqueda -->
-            <Entry Placeholder="🔍 Buscar alimento..." 
-                   Text="{Binding Busqueda}" 
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA"
-                   BackgroundColor="#1E1E1E"
-                   Margin="0,0,0,10"/>
+            <Entry Placeholder="🔍 Buscar alimento..."
+                   Text="{Binding Busqueda}"
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   Margin="0,0,0,10" />
 
             <!-- Lista de alimentos -->
-            <Label Text="📋 Lista de Alimentos:" 
-                   TextColor="White"
+            <Label Text="📋 Lista de Alimentos:"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    FontAttributes="Bold"
                    FontSize="18" />
 
-            <CollectionView ItemsSource="{Binding AlimentosFiltrados}"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding AlimentoSeleccionado}">
+            <CollectionView ItemsSource="{Binding Alimentos}"
+                SelectionMode="Single"
+                SelectedItem="{Binding AlimentoSeleccionado}">
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#1E1E1E"
-                               BorderColor="#2E2E2E"
+                        <Frame BackgroundColor="{DynamicResource CardColor}"
+                               BorderColor="{DynamicResource BorderColor}"
                                CornerRadius="12"
                                Margin="5"
                                Padding="12">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Nombre}" FontSize="18" TextColor="White" FontAttributes="Bold"/>
-                                <Label Text="{Binding Categoria}" FontSize="14" TextColor="#AAAAAA"/>
-                                <Label Text="{Binding Calorias, StringFormat='🔥 {0} cal'}" FontSize="14" TextColor="#AAAAAA"/>
-                            </VerticalStackLayout>
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+
+                                <!-- Imagen del alimento -->
+                                <Image Source="{Binding Imagen}"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+
+                                <!-- Datos del alimento -->
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Nombre}"
+                                           FontSize="18"
+                                           TextColor="{DynamicResource TextColor}"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Categoria}"
+                                           FontSize="14"
+                                           TextColor="{DynamicResource TextColor}" />
+                                    <Label Text="{Binding Calorias, StringFormat='🔥 {0} cal'}"
+                                           FontSize="14"
+                                           TextColor="{DynamicResource TextColor}" />
+                                </VerticalStackLayout>
+
+                            </HorizontalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+
             <!-- Separador visual -->
-            <BoxView HeightRequest="2" BackgroundColor="#2E2E2E" Margin="0,10"/>
+            <BoxView HeightRequest="2"
+                     BackgroundColor="{DynamicResource BorderColor}"
+                     Margin="0,10" />
 
             <!-- Formulario de edición / nuevo -->
             <Label Text="✍️ Editar / Agregar Alimento"
                    FontSize="20"
                    FontAttributes="Bold"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource TextColor}"
                    HorizontalOptions="Center" />
 
-            <Frame BackgroundColor="#1E1E1E" Padding="15" CornerRadius="10">
-                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="10">
-                    <Label Grid.Row="0" Grid.Column="0" Text="Nombre:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="0" Grid.Column="1" Placeholder="Nombre" Text="{Binding AlimentoSeleccionado.Nombre}" TextColor="White"/>
+            <Frame BackgroundColor="{DynamicResource CardColor}"
+                   Padding="15"
+                   CornerRadius="10">
+                <Grid ColumnDefinitions="Auto, *"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
 
-                    <Label Grid.Row="1" Grid.Column="0" Text="Categoría:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="1" Grid.Column="1" Placeholder="Categoría" Text="{Binding AlimentoSeleccionado.Categoria}" TextColor="White"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Nombre:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="0" Grid.Column="1" Placeholder="Nombre" Text="{Binding AlimentoSeleccionado.Nombre}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="2" Grid.Column="0" Text="Calorías:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="2" Grid.Column="1" Placeholder="Calorías" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Calorias}" TextColor="White"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Categoría:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="1" Grid.Column="1" Placeholder="Categoría" Text="{Binding AlimentoSeleccionado.Categoria}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="3" Grid.Column="0" Text="Proteínas:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="3" Grid.Column="1" Placeholder="Proteínas" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Proteinas}" TextColor="White"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Calorías:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="2" Grid.Column="1" Placeholder="Calorías" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Calorias}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="4" Grid.Column="0" Text="Carbohidratos:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="4" Grid.Column="1" Placeholder="Carbohidratos" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Carbohidratos}" TextColor="White"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Proteínas:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="3" Grid.Column="1" Placeholder="Proteínas" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Proteinas}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="5" Grid.Column="0" Text="Grasas:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="5" Grid.Column="1" Placeholder="Grasas" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Grasas}" TextColor="White"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="Carbohidratos:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="4" Grid.Column="1" Placeholder="Carbohidratos" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Carbohidratos}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="6" Grid.Column="0" Text="Fibra:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="6" Grid.Column="1" Placeholder="Fibra" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Fibra}" TextColor="White"/>
+                    <Label Grid.Row="5" Grid.Column="0" Text="Grasas:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="5" Grid.Column="1" Placeholder="Grasas" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Grasas}" TextColor="{DynamicResource TextColor}" />
 
-                    <Label Grid.Row="7" Grid.Column="0" Text="Origen:" TextColor="White" VerticalOptions="Center" />
-                    <Entry Grid.Row="7" Grid.Column="1" Placeholder="Origen" Text="{Binding AlimentoSeleccionado.Origen}" TextColor="White"/>
+                    <Label Grid.Row="6" Grid.Column="0" Text="Fibra:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="6" Grid.Column="1" Placeholder="Fibra" Keyboard="Numeric" Text="{Binding AlimentoSeleccionado.Fibra}" TextColor="{DynamicResource TextColor}" />
+
+                    <Label Grid.Row="7" Grid.Column="0" Text="Origen:" TextColor="{DynamicResource TextColor}" VerticalOptions="Center" />
+                    <Entry Grid.Row="7" Grid.Column="1" Placeholder="Origen" Text="{Binding AlimentoSeleccionado.Origen}" TextColor="{DynamicResource TextColor}" />
+
                 </Grid>
             </Frame>
 
-
             <!-- Botones de acción -->
             <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Button Text="💾 Guardar" Command="{Binding GuardarAlimentoCommand}" BackgroundColor="#00FF99" TextColor="Black"/>
-                <Button Text="🗑 Eliminar" Command="{Binding EliminarAlimentoCommand}" BackgroundColor="#FF5555" TextColor="White"/>
-                <Button Text="➕ Nuevo" Command="{Binding NuevoAlimentoCommand}" BackgroundColor="#5555FF" TextColor="White"/>
+                <Button Text="💾 Guardar"
+                        Command="{Binding GuardarAlimentoCommand}"
+                        BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                        TextColor="{DynamicResource ButtonTextColor}" />
+                <Button Text="🗑 Eliminar"
+                        Command="{Binding EliminarAlimentoCommand}"
+                        BackgroundColor="{DynamicResource ErrorTextColor}"
+                        TextColor="{DynamicResource ButtonTextColor}" />
+                <Button Text="➕ Nuevo"
+                        Command="{Binding NuevoAlimentoCommand}"
+                        BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                        TextColor="{DynamicResource ButtonTextColor}" />
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

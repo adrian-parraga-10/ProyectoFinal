@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.AdminUsuariosView"
-             BackgroundColor="#121212"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
@@ -11,61 +10,49 @@
             <Label Text="🔧 Administración de Usuarios"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    HorizontalOptions="Center" />
 
             <Entry Placeholder="🔍 Buscar por nombre o email..."
                    Text="{Binding Busqueda}"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
-            <!-- Lista de usuarios -->
             <CollectionView ItemsSource="{Binding UsuariosFiltrados}"
                             SelectionMode="Single"
                             SelectedItem="{Binding UsuarioSeleccionado}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#1E1E1E" CornerRadius="12" Padding="10" Margin="5">
+                        <Frame BackgroundColor="{DynamicResource CardColor}"
+                               CornerRadius="12"
+                               Padding="10"
+                               Margin="5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Nombre}" FontSize="18" TextColor="White" FontAttributes="Bold"/>
-                                <Label Text="{Binding Email}" FontSize="14" TextColor="#AAAAAA"/>
-                                <Label Text="{Binding Rol}" FontSize="14" TextColor="#AAAAAA"/>
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Email}"
+                                       FontSize="14"
+                                       TextColor="{DynamicResource TextColor}" />
+                                <Label Text="{Binding Rol}"
+                                       FontSize="14"
+                                       TextColor="{DynamicResource TextColor}" />
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Formulario de nuevo usuario -->
-            <Frame BackgroundColor="#1E1E1E" Padding="15" CornerRadius="10">
-                <VerticalStackLayout Spacing="10">
-                    <Entry Placeholder="Nombre" Text="{Binding NuevoUsuarioNombre}" TextColor="White"/>
-                    <Entry Placeholder="Email" Text="{Binding NuevoUsuarioEmail}" TextColor="White"/>
-                    <Entry Placeholder="Edad" Keyboard="Numeric" Text="{Binding NuevoUsuarioEdad}" TextColor="White"/>
-                    <Entry Placeholder="Sexo" Text="{Binding NuevoUsuarioSexo}" TextColor="White"/>
-                    <Entry Placeholder="Peso (kg)" Keyboard="Numeric" Text="{Binding NuevoUsuarioPeso}" TextColor="White"/>
-                    <Entry Placeholder="Altura (m)" Keyboard="Numeric" Text="{Binding NuevoUsuarioAltura}" TextColor="White"/>
-                </VerticalStackLayout>
-            </Frame>
-
-            <!-- Botones de acción -->
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Button Text="➕ Crear Usuario"
-                        Command="{Binding NuevoUsuarioCommand}"
-                        BackgroundColor="#00FF99"
-                        TextColor="Black" />
-            </HorizontalStackLayout>
-
-            <!-- Lista de usuarios y botones -->
             <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Button Text="🗑 Eliminar Usuario"
                         Command="{Binding EliminarUsuarioCommand}"
-                        BackgroundColor="#FF5555"
-                        TextColor="White"
+                        BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                        TextColor="{DynamicResource ButtonTextColor}"
                         IsEnabled="{Binding UsuarioSeleccionado, Converter={StaticResource NullToBoolConverter}}"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

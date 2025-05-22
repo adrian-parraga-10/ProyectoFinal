@@ -4,7 +4,7 @@
              x:Class="ProyectoFinal.Vista.HistorialSesionesView"
              Title="Historial de Sesiones"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#121212">
+             BackgroundColor="{DynamicResource BackgroundColor}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
@@ -12,7 +12,7 @@
             <Label Text="Historial de Sesiones"
                    FontSize="24"
                    FontAttributes="Bold"
-                   TextColor="White"
+                   TextColor="{DynamicResource TextColor}"
                    HorizontalOptions="Center"/>
 
             <CollectionView x:Name="SesionesCollection"
@@ -21,24 +21,24 @@
                     <DataTemplate>
                         <Frame Margin="0,5"
                                Padding="15"
-                               BorderColor="#4CAF50"
-                               BackgroundColor="#1E1E1E"
+                               BorderColor="{DynamicResource AccentColor}"
+                               BackgroundColor="{DynamicResource CardColor}"
                                CornerRadius="12"
                                HasShadow="True">
                             <VerticalStackLayout>
                                 <Label Text="{Binding FechaSesion, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}"
                                        FontAttributes="Bold"
                                        FontSize="16"
-                                       TextColor="White"/>
+                                       TextColor="{DynamicResource TextColor}"/>
                                 <Label Text="{Binding Ejercicios.Count, StringFormat='Ejercicios realizados: {0}'}"
                                        FontSize="14"
-                                       TextColor="White"/>
+                                       TextColor="{DynamicResource TextColor}"/>
 
                                 <Button Text="👁 Ver Detalles"
                                         Command="{Binding Source={x:Reference SesionesCollection}, Path=BindingContext.VerDetallesCommand}"
                                         CommandParameter="{Binding .}"
-                                        BackgroundColor="#00FF99"
-                                        TextColor="Black"
+                                        BackgroundColor="{DynamicResource PrimaryAccentColor}"
+                                        TextColor="{DynamicResource ButtonTextColor}"
                                         CornerRadius="10"
                                         FontAttributes="Bold"
                                         HeightRequest="40"/>

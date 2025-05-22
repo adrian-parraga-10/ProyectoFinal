@@ -1,8 +1,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoFinal.Vista.AdminEjerciciosView"
-             BackgroundColor="#121212"
-             Shell.NavBarIsVisible="False">
+             BackgroundColor="{DynamicResource BackgroundColor}"
+             Shell.NavBarIsVisible="False"
+             x:Name="RootPage">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -10,75 +11,79 @@
             <Label Text="🛠 Administración de Ejercicios"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="#00FF99"
+                   TextColor="{DynamicResource PrimaryAccentColor}"
                    HorizontalOptions="Center" />
 
             <Entry Placeholder="🔍 Buscar..."
                    Text="{Binding Busqueda}"
-                   TextColor="White"
-                   PlaceholderColor="#AAAAAA" />
+                   TextColor="{DynamicResource TextColor}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}" 
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
 
-            <!-- Lista -->
             <CollectionView ItemsSource="{Binding EjerciciosFiltrados}"
                             SelectionMode="Single"
                             SelectedItem="{Binding EjercicioSeleccionado}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#1E1E1E" CornerRadius="12" Padding="10" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Nombre}" FontSize="18" TextColor="White" FontAttributes="Bold"/>
-                                <Label Text="{Binding Categoria}" FontSize="14" TextColor="#AAAAAA"/>
-                                <Label Text="{Binding Nivel}" FontSize="14" TextColor="#AAAAAA"/>
-                            </VerticalStackLayout>
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                               Padding="10" Margin="5" CornerRadius="8">
+                            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image Source="{Binding Imagen}"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Nombre}" 
+                                           TextColor="{DynamicResource TextColor}" 
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Categoria}" 
+                                           TextColor="{DynamicResource TextColor}" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Formulario -->
-            <Frame BackgroundColor="#1E1E1E" Padding="15" CornerRadius="10">
+            <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" Padding="15" CornerRadius="10">
                 <VerticalStackLayout Spacing="10">
-                    <Entry Placeholder="Nombre" Text="{Binding EjercicioSeleccionado.Nombre}" TextColor="White"/>
-                    <Entry Placeholder="Categoría" Text="{Binding EjercicioSeleccionado.Categoria}" TextColor="White"/>
-                    <Entry Placeholder="Descripción" Text="{Binding EjercicioSeleccionado.Descripcion}" TextColor="White"/>
-                    <Entry Placeholder="Nivel" Text="{Binding EjercicioSeleccionado.Nivel}" TextColor="White"/>
-
-                    <Label Text="Músculos trabajados:" TextColor="#00FF99" FontAttributes="Bold"/>
-
-                    <!-- Lista de músculos trabajados -->
-                    <CollectionView ItemsSource="{Binding EjercicioSeleccionado.MusculosTrabajados}" SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <HorizontalStackLayout Spacing="10">
-                                    <!-- Campo para el músculo -->
-                                    <Entry Text="{Binding .,Mode=TwoWay}" Placeholder="Músculo" TextColor="White"/>
-
-                                    <!-- Botón para eliminar un músculo -->
-                                    <Button Text="❌" 
-                                            Command="{Binding BindingContext.EliminarMusculoCommand}"
-                                            CommandParameter="{Binding .}"
-                                            BackgroundColor="#00FF99"
-                                            TextColor="Red" />
-                                </HorizontalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <!-- Botón para agregar un nuevo músculo -->
-                    <Button Text="➕ Agregar músculo"
-        Command="{Binding AgregarMusculoCommand}"
-        BackgroundColor="#00FF99"
-        TextColor="Black" />
-
-
+                    <Entry Placeholder="Nombre" 
+                           Text="{Binding EjercicioSeleccionado.Nombre}" 
+                           TextColor="{DynamicResource TextColor}" 
+                           BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
+                    <Entry Placeholder="Categoría" 
+                           Text="{Binding EjercicioSeleccionado.Categoria}" 
+                           TextColor="{DynamicResource TextColor}" 
+                           BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
+                    <Entry Placeholder="Descripción" 
+                           Text="{Binding EjercicioSeleccionado.Descripcion}" 
+                           TextColor="{DynamicResource TextColor}" 
+                           BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
+                    <Entry Placeholder="Nivel" 
+                           Text="{Binding EjercicioSeleccionado.Nivel}" 
+                           TextColor="{DynamicResource TextColor}" 
+                           BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
+                    <Entry Placeholder="Imagen" 
+                           Text="{Binding EjercicioSeleccionado.Imagen}" 
+                           TextColor="{DynamicResource TextColor}" 
+                           BackgroundColor="{DynamicResource EntryBackgroundColor}"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Botones -->
             <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Button Text="💾 Guardar" Command="{Binding GuardarCommand}" BackgroundColor="#00FF99" TextColor="Black"/>
-                <Button Text="🗑 Eliminar" Command="{Binding EliminarCommand}" BackgroundColor="#FF5555" TextColor="White"/>
-                <Button Text="➕ Nuevo" Command="{Binding NuevoCommand}" BackgroundColor="#5555FF" TextColor="White"/>
+                <Button Text="💾 Guardar" 
+                        Command="{Binding GuardarCommand}" 
+                        BackgroundColor="{DynamicResource PrimaryAccentColor}" 
+                        TextColor="{DynamicResource ButtonTextColor}" />
+                <Button Text="🗑 Eliminar" 
+                        Command="{Binding EliminarCommand}" 
+                        BackgroundColor="{DynamicResource ErrorTextColor}" 
+                        TextColor="{DynamicResource ButtonTextColor}" />
+                <Button Text="➕ Nuevo" 
+                        Command="{Binding NuevoCommand}" 
+                        BackgroundColor="{DynamicResource PrimaryAccentColor}" 
+                        TextColor="{DynamicResource ButtonTextColor}" />
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

@@ -23,7 +23,6 @@ namespace ProyectoFinal.ViewModels
             }
         }
 
-        public Command NuevoUsuarioCommand { get; }
         public Command EliminarUsuarioCommand { get; }
 
         private Usuario _usuarioSeleccionado;
@@ -34,22 +33,19 @@ namespace ProyectoFinal.ViewModels
             {
                 _usuarioSeleccionado = value;
                 OnPropertyChanged();
+
+                if (value != null)
+                {
+                    // Notificar a la vista que se ha seleccionado un usuario
+                    MessagingCenter.Send(this, "UsuarioSeleccionado", value);
+                }
             }
         }
 
-        // Variables para los campos de nuevo usuario
-        public string NuevoUsuarioNombre { get; set; }
-        public string NuevoUsuarioEmail { get; set; }
-        public int NuevoUsuarioEdad { get; set; }
-        public string NuevoUsuarioSexo { get; set; }
-        public double NuevoUsuarioPeso { get; set; }
-        public double NuevoUsuarioAltura { get; set; }
 
         public AdminUsuariosViewModel()
         {
-            NuevoUsuarioCommand = new Command(NuevoUsuario);
             EliminarUsuarioCommand = new Command(EliminarUsuario);
-
             CargarUsuarios();
         }
 
@@ -80,40 +76,33 @@ namespace ProyectoFinal.ViewModels
                 UsuariosFiltrados.Add(usuario);
             }
         }
-
-        private async void NuevoUsuario()
-        {
-            
-            var nuevoUsuario = new Usuario
-            {
-                Nombre = NuevoUsuarioNombre,
-                Email = NuevoUsuarioEmail,
-                Edad = NuevoUsuarioEdad,
-                Sexo = NuevoUsuarioSexo,
-                Rol = "Usuario",  
-                Peso = NuevoUsuarioPeso,
-                Altura = NuevoUsuarioAltura,
-                FechaCreacion = DateTime.Now,
-                Objetivos = new List<string>(), 
-                FotoPerfil = "default.jpg",     
-                RutinasGuardadas = new List<string>(),
-                DietaGuardada = ""
-            };
-
-            // Guardar el nuevo usuario en la base de datos
-            await _bbdd.InsertarUsuarioAsync(nuevoUsuario);
-            await CargarUsuarios();
-        }
-
         private async void EliminarUsuario()
         {
-            if (UsuarioSeleccionado != null)
+            if (UsuarioSeleccionado == null)
+                return;
+
+            bool confirmar = await Application.Current.MainPage.DisplayAlert(
+                "Confirmar",
+                $"¿Seguro que deseas eliminar al usuario \"{UsuarioSeleccionado.Nombre}\"?",
+                "Sí", "No");
+
+            if (!confirmar)
+                return;
+
+            try
             {
-                // Eliminar el usuario seleccionado
                 await _bbdd.EliminarUsuarioAsync(UsuarioSeleccionado.Id);
                 await CargarUsuarios();
+                UsuarioSeleccionado = null;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo eliminar el usuario: {ex.Message}", "OK");
             }
         }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = "")
