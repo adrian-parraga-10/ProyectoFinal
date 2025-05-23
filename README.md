@@ -29,3 +29,12 @@ Una aplicación multiplataforma desarrollada con **.NET MAUI**, orientada al **s
 
 **Adrián Párraga Sáez**  
 Trabajo de Fin de Grado – Desarrollo de Aplicaciones Multiplataforma (DAM)
+
+## Limitación conocida
+Actualmente, la generación del instalador (.msix) para Windows no está disponible debido a una incompatibilidad con los paquetes Microsoft.NETCore.App.Runtime.Mono.win-x86 en la versión preview de .NET 9.0 utilizada por MAUI en este proyecto.
+
+Esta es una limitación conocida en el ecosistema .NET MAUI y no tiene una solución directa en el alcance del TFG.
+
+A pesar de esta limitación, la aplicación funciona correctamente cuando se ejecuta desde Visual Studio.
+Migrar el proyecto a .NET 8 habría implicado rehacer y volver a probar gran parte del código, incluyendo dependencias y configuración.
+Dado que .NET 9 está prácticamente completo y mi proyecto corre sin problemas en el entorno de desarrollo, opté por entregar una solución funcional, aunque sin empaquetar como instalador (.msix).
