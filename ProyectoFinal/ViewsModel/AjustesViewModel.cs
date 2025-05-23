@@ -59,7 +59,7 @@ namespace ProyectoFinal.ViewsModel
             else
                 mergedDictionaries.Add(new Resources.Styles.TemaClaro());
 
-            // Asegura que solo uno esté seleccionado
+           
             TemaClaroSeleccionado = nuevoTema == AppTheme.Light;
             TemaOscuroSeleccionado = nuevoTema == AppTheme.Dark;
         }

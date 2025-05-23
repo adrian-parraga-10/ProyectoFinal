@@ -12,7 +12,6 @@ public class HistorialConsumoViewModel : INotifyPropertyChanged
 
     public ObservableCollection<ConsumoAlimento> AlimentosDeEseDia { get; set; } = new();
 
-    // Propiedad para la fecha seleccionada desde el calendario
     private DateTime _fechaSeleccionada;
     public DateTime FechaSeleccionada
     {

@@ -14,8 +14,7 @@
                    FontSize="18"
                    TextColor="{DynamicResource TextColor}"
                    HorizontalOptions="Center"/>
-
-            <!-- Estilizado del DatePicker -->
+           
             <Frame BorderColor="{DynamicResource PrimaryAccentColor}"
                    CornerRadius="10"
                    Padding="10"

@@ -50,8 +50,7 @@ namespace ProyectoFinal.ViewModels
         }
 
         private async Task CargarUsuarios()
-        {
-            // Obtener la lista de usuarios desde la base de datos
+        {         
             var listaUsuarios = await _bbdd.ObtenerUsuariosAsync();
             Usuarios.Clear();
             foreach (var usuario in listaUsuarios)

@@ -68,8 +68,6 @@ public class BBDD
 
 
 
-    
-
 
     // Método para obtener los ejercicios desde la base de datos
     public async Task<List<Ejercicio>> ObtenerEjerciciosAsync()
